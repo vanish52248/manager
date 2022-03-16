@@ -1,9 +1,13 @@
 import React from 'react';
+import { BrowserRouter } from "react-router-dom"
+import router from './router';
 
 function App() {
   return (
     <div className="App">
-      hello world
+      <BrowserRouter >
+        {router}
+      </BrowserRouter>
     </div>
   );
 }
