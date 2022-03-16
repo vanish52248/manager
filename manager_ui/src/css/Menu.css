@@ -1,0 +1,8 @@
+
+.grid_wrapper {
+    height: 800px;
+    background-image: url(../images/menu_bg.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}

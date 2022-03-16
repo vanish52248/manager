@@ -1,0 +1,7 @@
+.header_wrapper {
+    display: flex;
+    padding: 10px;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    margin: 20px 0;
+}
