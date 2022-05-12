@@ -1,0 +1,104 @@
+2022-04-09 00:30:41,627 [INFO] 13024 19584 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:30:49,111 [INFO] 13024 3180 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:19 log info test!
+2022-04-09 00:30:49,111 [ERROR] 13024 3180 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:20 log error test!
+2022-04-09 00:30:49,117 [INFO] 13024 3180 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 200 89
+2022-04-09 00:34:16,393 [INFO] 13024 19584 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api\settings\base.py changed, reloading.
+2022-04-09 00:34:17,047 [INFO] 22616 23280 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:34:43,485 [INFO] 22616 23280 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py changed, reloading.
+2022-04-09 00:34:44,170 [INFO] 21292 14896 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:34:46,918 [INFO] 21292 23964 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:20 [{'users': 'tetsuya'}, {'users': 'taro'}]
+2022-04-09 00:34:46,918 [ERROR] 21292 23964 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:21 log error test!
+2022-04-09 00:34:46,920 [INFO] 21292 23964 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 200 89
+2022-04-09 00:34:53,623 [INFO] 21292 23964 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:20 [{'users': 'tetsuya'}, {'users': 'taro'}]
+2022-04-09 00:34:53,624 [ERROR] 21292 23964 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:21 log error test!
+2022-04-09 00:34:53,624 [INFO] 21292 23964 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 200 89
+2022-04-09 00:36:53,140 [INFO] 21292 14896 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py changed, reloading.
+2022-04-09 00:36:53,850 [INFO] 11936 13300 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:36:59,167 [ERROR] 11936 8080 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\log.py:224 Internal Server Error: /manager_api_app/history_user/
+Traceback (most recent call last):
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py", line 21, in get_user
+    logger.info(result_data)
+AttributeError: 'StreamHandler' object has no attribute 'info'
+2022-04-09 00:36:59,169 [ERROR] 11936 8080 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 500 100256
+2022-04-09 00:38:02,411 [INFO] 11936 13300 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py changed, reloading.
+2022-04-09 00:38:03,104 [INFO] 15628 11252 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:38:46,285 [INFO] 15628 11252 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api\settings\base.py changed, reloading.
+2022-04-09 00:39:04,162 [INFO] 18324 23736 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:39:56,509 [INFO] 18324 23736 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api\settings\base.py changed, reloading.
+2022-04-09 00:39:57,224 [INFO] 16780 16916 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:42:13,000 [INFO] 16780 16916 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api\settings\base.py changed, reloading.
+2022-04-09 00:42:13,704 [INFO] 9144 8364 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:42:23,401 [INFO] 9144 8364 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py changed, reloading.
+2022-04-09 00:42:24,180 [INFO] 16936 12304 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:42:31,614 [INFO] 16936 24360 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:20 [{'users': 'tetsuya'}, {'users': 'taro'}]
+2022-04-09 00:42:31,615 [ERROR] 16936 24360 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:21 log error test!
+2022-04-09 00:42:31,617 [INFO] 16936 24360 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 200 89
+2022-04-09 00:43:14,747 [INFO] 16936 12304 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py changed, reloading.
+2022-04-09 00:43:15,462 [INFO] 9764 2240 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:43:30,242 [INFO] 9764 14784 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:20 [{'users': 'tetsuya'}, {'users': 'taro'}]
+2022-04-09 00:43:30,243 [ERROR] 9764 14784 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:21 log error test!
+2022-04-09 00:43:30,246 [INFO] 9764 14784 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 200 89
+2022-04-09 00:43:33,680 [INFO] 9764 14784 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:20 [{'users': 'tetsuya'}, {'users': 'taro'}]
+2022-04-09 00:43:33,681 [ERROR] 9764 14784 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:21 log error test!
+2022-04-09 00:43:33,682 [INFO] 9764 14784 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 200 89
+2022-04-09 00:47:46,885 [INFO] 9764 2240 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api\settings\base.py changed, reloading.
+2022-04-09 00:47:47,561 [INFO] 19540 21652 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:48:36,883 [INFO] 19540 21652 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py changed, reloading.
+2022-04-09 00:48:37,572 [INFO] 23404 13864 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:50:26,487 [INFO] 23404 13864 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py changed, reloading.
+2022-04-09 00:50:27,150 [INFO] 22128 5324 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-04-09 00:50:31,329 [INFO] 22128 2000 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:21 [{'users': 'tetsuya'}, {'users': 'taro'}]
+2022-04-09 00:50:31,330 [ERROR] 22128 2000 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py:22 log error test!
+2022-04-09 00:50:31,332 [INFO] 22128 2000 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "GET /manager_api_app/history_user/ HTTP/1.1" 200 89
+2022-04-09 00:50:59,045 [INFO] 22128 2000 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "OPTIONS /manager_api_app/body_weight/ HTTP/1.1" 200 0
+2022-04-09 00:50:59,496 [ERROR] 22128 15672 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\log.py:224 Internal Server Error: /manager_api_app/body_weight/
+Traceback (most recent call last):
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\request.py", line 416, in __getattr__
+    return getattr(self._request, attr)
+AttributeError: 'WSGIRequest' object has no attribute 'user_name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\views\generic\base.py", line 70, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\body_weight_view.py", line 34, in get_weight
+    weight_list = BodyWeight.objects.get(users=request.user_name, delete_flag=0)
+  File "C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\rest_framework\request.py", line 418, in __getattr__
+    return self.__getattribute__(attr)
+AttributeError: 'Request' object has no attribute 'user_name'
+2022-04-09 00:50:59,501 [ERROR] 22128 15672 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\core\servers\basehttp.py:157 "POST /manager_api_app/body_weight/ HTTP/1.1" 500 108235

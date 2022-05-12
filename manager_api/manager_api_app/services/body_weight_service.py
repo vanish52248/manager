@@ -1,6 +1,6 @@
 """体重管理のサービス"""
 from manager_api_app.models.body_weight import BodyWeight
-from manager_api_app.serializers.body_weight_serializer import BodyWeightResponseSerializer
+# from manager_api_app.serializers.body_weight_serializer import BodyWeightResponseSerializer
 
 class BodyWeightService():
     """体重管理のサービス"""
@@ -11,11 +11,11 @@ class BodyWeightService():
         for user in users:
             result_list.append(
                 {
-                "id": user.id,
-                "weight": user.weight,
+                # "id": user.id,
+                # "weight": user.weight,
                 "users": user.users
                 }
             )
         print(f"result_list:{result_list}")
         
-        return BodyWeightResponseSerializer(result_list)
+        return result_list

@@ -4,28 +4,33 @@
 import React, { useEffect, useState, useRef } from 'react'
 
 import axios from 'axios';
-import { FormControl, InputLabel, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import Header from './Header';
 
-type userDataList = {
-  id: number,
-  weight: number,
-  users: string[],
+type dataList = {
+  users: string,
 }
 
 const BodyManage = () => {
-  
+  // -------------------------------------------------------------------
+  // useState
   const [weights, setWeights] = useState(0);
-  const [userName, setUserName] = useState<userDataList | never[]>([]);
+  const [userName, setUserName] = useState<dataList[]>([]);
   const [selectUser, setSelectUser] = useState("");
   const isFirstRender = useRef(false);
+  // -------------------------------------------------------------------
 
+  // -------------------------------------------------------------------
+  // 初回読み込み時のみ走るuseEffect
   useEffect(()=> {
     isFirstRender.current = true
     userSet();
   }, [])
+  // -------------------------------------------------------------------
 
+  // -------------------------------------------------------------------
+  // ユーザーが変更された際の体重取得のuseEffect
   useEffect(()=> {
     if(isFirstRender.current) {
       isFirstRender.current = false
@@ -33,37 +38,43 @@ const BodyManage = () => {
       weightSearch();
     }
   }, [selectUser])
+  // -------------------------------------------------------------------
 
+
+  // -------------------------------------------------------------------
+  // userをプルダウンにセットする処理
   const userSet = () => {
     axios.get(process.env.REACT_APP_API_URL + 'history_user/')
     .then(res => {
       const resultList = res.data.records;
       console.log(`axios-SUCCEED:${JSON.stringify(resultList)}`, `型:${typeof(resultList)}`);
       setUserName(resultList);
-      console.log(`userName:${JSON.stringify(userName)}`, `型:${typeof(userName)}`);
-
-      // resultList.map((elem: string[]) => setUserName([...userName, elem]))
-      // Object.values(resultList).map((elem: any)=> setUserName({...userName, elem}));
     })
     .catch((error) => {
       console.log(`axios-FAILED:${error}`);
     })
   }
+  // -------------------------------------------------------------------
 
+
+  // -------------------------------------------------------------------
+  // プルダウンが選択されたユーザーに変更する処理
   const userChange = (e: any) => {
     console.log(`選択ユーザー名:${e.target.value}`)
+    // selectboxのvalue={}の値をsetSelectUserする
     setSelectUser(e.target.value);
   }
- 
-  const weightSearch = () => {
-    const data = {
-      user_name: selectUser
-    }
-    const headers = {
-      'Content-Type': 'application/json'
-    }  
-    axios.post(process.env.REACT_APP_API_URL + 'body_weight/', data, {
-      headers: headers
+  // -------------------------------------------------------------------
+
+
+  // -------------------------------------------------------------------
+  // プルダウンが選択されたユーザーの体重を取得する処理
+  const weightSearch = () => {    
+    axios.post(process.env.REACT_APP_API_URL + 'body_weight/', {
+      // TODO viewsに渡らない
+      user_name : selectUser
+    }, {
+      withCredentials: true
     }).then(res => {
       const resultList = res.data.records;
       console.log(`axios-SUCCEED:${resultList}`, `型:${typeof(resultList)}`)
@@ -73,7 +84,11 @@ const BodyManage = () => {
       console.log(`axios-FAILED:${error}`);
     })
   }
-  
+  // -------------------------------------------------------------------
+
+
+  // -------------------------------------------------------------------
+  // JSX
   return (
     <>
     <Header />
@@ -85,15 +100,17 @@ const BodyManage = () => {
       id="demo-simple-select"
       label="ユーザー名"
       onChange={userChange}
-      value={selectUser}
       >
-      {/* {userName.map((value: string, index: number)=><option value={value} key={index}>{value}</option>)} */}
-      {Object.values(userName).map((value: any)=> <option>{value}</option>)}
+      {/* selectboxの中身をDBからの値で動的に更新する */}
+      {userName.map((row, index) => (
+        <MenuItem key={index} value={row.users}>{row.users}</MenuItem>
+      ))}
     </Select>
     </FormControl>
     <p>{weights}</p>
     </>
   )
 }
+// -------------------------------------------------------------------
 
 export default BodyManage
