@@ -23,6 +23,5 @@ def create_response(response_body=None,
     response_data["result_code"] = result_code
     
     print(f"★ create_responseからフロントへ返す値:{response_data}")
-    # DRFから提供されているビューは全てResponse というクラスで返却する
-    # 通常の Django は HttpResponse というクラスで返す。
+    # DRFから提供されているビューは全てResponseで返却する
     return Response(response_data, http_status)

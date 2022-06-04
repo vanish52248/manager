@@ -7,8 +7,8 @@ export default function MenuButtons() {
 
   const router = RoutingLogic()
 
-  const toBodyManage = () => {
-    router.toBodyManage();
+  const toPartyRegister = () => {
+    router.toPartyRegister();
   }
   return (
     <>
@@ -27,24 +27,21 @@ export default function MenuButtons() {
           >
           <Button
             style={{width: "650px"}}
-            key="body_weight"
-            onClick={toBodyManage}
+            key="party_register"
+            onClick={toPartyRegister}
             >
-            体重管理</Button>
+            パーティー登録</Button>
           <Button
             style={{width: "650px"}}
             key="props2"
-            >排泄管理</Button>
+            >hoge</Button>
           <Button
             style={{width: "650px"}}
-            key="props3">運動管理</Button>
+            key="props3">huga</Button>
           <Button
            style={{width: "650px"}}
-           key="props4">TODO</Button>
-          <Button
-            style={{width: "650px"}}
-            key="props5">日記</Button>
-          </ButtonGroup>
+           key="props4">piyo</Button>
+        </ButtonGroup>
         </Box>
     </>
   );

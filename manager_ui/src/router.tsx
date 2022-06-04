@@ -1,19 +1,21 @@
+// router-logic.tsx -> router.tsx -> App.tsx -> index.html
+// App.tsxからルーティングするためのPathとコンポーネントを記載する
 import React from 'react'
 
 import { Routes, Route } from "react-router-dom"
 
 import Menu from './components/Menu';
-import BodyManage from './components/BodyManage';
+import PartyRegister from './components/PartyRegister';
 
 export const Path = {
     Menu: '/',
-    BodyManage: '/body_manage'
+    PartyRegister: '/party_register'
 };
 
 const router = (
     <Routes>
         <Route path={Path.Menu} element={<Menu/>}></Route>
-        <Route path={Path.BodyManage} element={<BodyManage/>}></Route>
+        <Route path={Path.PartyRegister} element={<PartyRegister/>}></Route>
     </Routes>
 )
 

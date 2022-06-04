@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter >
+      {/* routerで各コンポーネントのルーティングをまとめている */}
         {router}
       </BrowserRouter>
     </div>

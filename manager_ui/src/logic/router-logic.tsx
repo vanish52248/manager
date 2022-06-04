@@ -1,20 +1,22 @@
+// router-logic.tsx -> router.tsx -> App.tsx -> index.html
+// 実際にPathを受け取った際のロジックを記載する
 import { useNavigate } from "react-router-dom"
 
 export const RoutingLogic = (): {
     toMenu: () => void,
-    toBodyManage: () => void,
+    toPartyRegister: () => void,
 } => {
     const navigate = useNavigate();
     const toMenu = () => {
         navigate("/");
     };
 
-    const toBodyManage = () => {
-        navigate("/body_manage");
+    const toPartyRegister = () => {
+        navigate("/party_register");
     };
 
     return {
         toMenu: toMenu,
-        toBodyManage: toBodyManage
+        toPartyRegister: toPartyRegister
     };
 };
