@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 2022-06-12 03:43:43,978 [INFO] 11552 5176 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\models\__init__.py changed, reloading.
 2022-06-12 03:43:44,782 [INFO] 3660 16404 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\party_register_view.py:12 manager/party_register/
 2022-06-12 03:44:45,204 [INFO] 11336 1996 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\party_register_view.py:12 manager/party_register/
+=======
+2022-06-12 03:34:49,190 [INFO] 6740 17652 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\party_register_view.py changed, reloading.
+2022-06-12 03:34:49,906 [INFO] 18264 15100 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:617 Watching for file changes with StatReloader
+2022-06-12 03:34:49,966 [INFO] 18264 15100 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\party_register_view.py:12 manager/party_register/
+2022-06-12 03:38:27,674 [INFO] 18264 15100 C:\Users\vanis\.virtualenvs\manager_api-qKfrZB-Q\lib\site-packages\django\utils\autoreload.py:240 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api\settings\base.py changed, reloading.
+2022-06-12 03:38:28,456 [INFO] 17496 5156 C:\Users\vanis\OneDrive\デスクトップ\workspace\03_projects\01_private\manager\manager_api\manager_api_app\views\party_register_view.py:12 manager/party_register/
+>>>>>>> e1ceca8df6d77c31d551fe063cc3e045d27997fc
