@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom"
 export const RoutingLogic = (): {
     toMenu: () => void,
     toPartyRegister: () => void,
+    toPokemonRegister: () => void,
 } => {
     const navigate = useNavigate();
+
     const toMenu = () => {
         navigate("/");
     };
@@ -15,8 +17,13 @@ export const RoutingLogic = (): {
         navigate("/party_register");
     };
 
+    const toPokemonRegister = () => {
+        navigate("/pokemon_register");
+    }
+
     return {
         toMenu: toMenu,
-        toPartyRegister: toPartyRegister
+        toPartyRegister: toPartyRegister,
+        toPokemonRegister: toPokemonRegister,
     };
 };

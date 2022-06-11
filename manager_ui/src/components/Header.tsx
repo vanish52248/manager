@@ -1,4 +1,6 @@
+// ヘッダーのコンポーネント
 import React from 'react';
+
 import { Tooltip, Typography } from '@mui/material';
 
 import '../css/Header.css';
@@ -16,7 +18,7 @@ const Header = () => {
     <>
       <div className="header_wrapper">
         <div onClick={toMenu}>
-          <Tooltip title={<Typography style={{fontSize: "15px"}}>メニュー選択へ戻る</Typography>}>
+          <Tooltip title={<Typography style={{fontSize: "15px"}}>メニュー画面へ戻る</Typography>}>
             <img src={HomeIcon} style={{width: "50px", cursor: "pointer"}} />
           </Tooltip>
         </div>

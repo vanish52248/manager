@@ -21,9 +21,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # ------------------------------------------------------------------------
+    # ローカルアプリケーション
+    # --------------------- ---------------------------------------------------
     'manager_api_app.apps.ManagerApiAppConfig',
     # ------------------------------------------------------------------------
-    # サードパーティ アプリケーション
+    # サードパーティアプリケーション
     # --------------------- ---------------------------------------------------
     'rest_framework',
     'corsheaders',
@@ -54,12 +57,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
-
-REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES': (
-      'rest_framework.authentication.TokenAuthentication',
-   )
-}
 
 ROOT_URLCONF = 'manager_api.urls'
 
@@ -140,7 +137,7 @@ LOGGING = {
         # Django自身が出力するログ全般を拾うロガー
         'django': {
             # 先述のhandlersのログ出力先をfileとconsole共に出力する設定
-            'handlers': ['file', 'console'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
