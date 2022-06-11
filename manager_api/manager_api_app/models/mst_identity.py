@@ -1,17 +1,13 @@
 from django.db import models
 
-class MstParty(models.Model):
+class MstIdentity(models.Model):
     """
-    パーティのモデル
+    個性のモデル
     """
     id = models.AutoField(primary_key=True)
-    party_name = models.CharField(
-        max_length=256,
-        verbose_name="パーティ名"
-    )
-    poke_name = models.CharField(
-        max_length=256,
-        verbose_name="ポケモン名"
+    category = models.CharField(
+        max_length=20,
+        verbose_name="個性の名前"
     )
     delete_flag = models.BooleanField(
         default=False,
@@ -33,6 +29,6 @@ class MstParty(models.Model):
     # 下記必ずクラス内に配置するメタクラス
     class Meta:
         """テーブル定義のメタクラス"""
-        verbose_name = ("パーティの登録")
+        verbose_name = ("個性の登録")
         # テーブル名を下記にリネーム
-        db_table = 'party'
+        db_table = 'identity'

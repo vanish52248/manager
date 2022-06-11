@@ -1,3 +1,4 @@
+// メニュー画面のコンポーネント
 import * as React from 'react';
 
 import Grid from '@mui/material/Grid';
@@ -11,12 +12,12 @@ export default function Menu() {
 
   return (
     <>
+      <Grid container justifyContent="center" className='grid_wrapper'>
       <Header />
-      <Grid container spacing={0} justifyContent="center" alignItems="center"className='grid_wrapper'>
-      <Grid item xs={4}>
+      <Grid item xs={4} className='menu_grid_item'>
           <Grid container alignContent={"center"} justifyContent="center">
               <Grid item >
-              <Paper sx={{ height: 350, width: 700 }} >
+              <Paper sx={{ height: 250, width: 700 }} >
                 <MenuButtons />
               </Paper >
               </Grid>
