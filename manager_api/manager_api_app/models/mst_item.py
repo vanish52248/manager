@@ -1,22 +1,17 @@
 from django.db import models
-from manager_api_app.models.mst_pokemon import MstPokemon
 
-class MstParty(models.Model):
+class MstItem(models.Model):
     """
-    パーティのモデル
+    持ち物のモデル
     """
     id = models.AutoField(primary_key=True)
-    party_name = models.CharField(
-        max_length=256,
-        verbose_name="パーティ名",
-        null=False,
-        blank=False,
+    category = models.CharField(
+        max_length=30,
+        verbose_name="持ち物の名前"
     )
-    poke_name = models.ForeignKey(
-        MstPokemon,
-        to_field='poke_name',
-        verbose_name="ポケモン名",
-        on_delete=models.CASCADE,
+    description = models.CharField(
+        max_length=255,
+        verbose_name="持ち物の説明"
     )
     delete_flag = models.BooleanField(
         default=False,
@@ -38,6 +33,6 @@ class MstParty(models.Model):
     # 下記必ずクラス内に配置するメタクラス
     class Meta:
         """テーブル定義のメタクラス"""
-        verbose_name = ("パーティの登録")
+        verbose_name = ("持ち物の登録")
         # テーブル名を下記にリネーム
-        db_table = 'party'
+        db_table = 'item'

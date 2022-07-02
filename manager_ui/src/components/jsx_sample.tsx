@@ -1,6 +1,5 @@
-/*
-体重管理ページのコンポーネント
-*/
+// 体重管理ページのコンポーネント
+
 import React, { useEffect, useState, useRef } from 'react'
 
 import axios from 'axios';
