@@ -136,7 +136,7 @@ LOGGING = {
         },
         # Django自身が出力するログ全般を拾うロガー
         'django': {
-            # 先述のhandlersのログ出力先をfileとconsole共に出力する設定
+            # 先述のhandlersのログ出力先をconsoleのみに出力する設定
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
