@@ -51,7 +51,7 @@ export default function PokemonDeleteDialog(props: any) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            パーティー登録中のこのポケモンを削除しますか？
+            {`パーティー登録中のこのポケモンを削除しますか？`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

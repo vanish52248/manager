@@ -28,13 +28,17 @@ class PartyRegisterView(APIView):
         result_data["currentSelectPokemon6"] = request.data.get("currentSelectPokemon6")
         print(f"result_data:{result_data}")
 
-        # リクエストデータ(パーティ名)をシリアライズ
-        PartySerializer.validate_party_name(self, result_data["partyName"])
+        # リクエストデータ(パーティー名)をシリアライズ
+        PartySerializer.validate_party_name_blank(self, result_data["partyName"])
 
+        # リクエストデータ(パーティー名)とDBの値を比較シリアライズ
+        PartySerializer.validate_party_name_same(self, result_data["partyName"])
+        
         # リクエストデータ(ポケモン6匹)をシリアライズ
         for i in range(1, 7):
             PartySerializer.validate_party_pokemon_blank(self, result_data[f"currentSelectPokemon{i}"],)
 
+        
         # 登録画面から受け取った値をPartyテーブルに登録する
         for i in range(1, 7):            
             MstParty.objects.create(

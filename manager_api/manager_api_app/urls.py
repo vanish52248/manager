@@ -1,7 +1,8 @@
 from django.urls import path
 from manager_api_app.views import (
     party_register_view, personality_view, identity_view, item_view,
-    pokemon_register_view, pokemon_list_view, party_grid_pokemon_view
+    pokemon_register_view, pokemon_list_view, party_list_view, party_grid_pokemon_view,
+    party_name_pokemon_view, 
 )
 
 urlpatterns = [
@@ -9,10 +10,14 @@ urlpatterns = [
     path('pokemon_register/', pokemon_register_view.PokemonRegisterView.as_view(), name='pokemon_register'),
     # ポケモン一覧取得のルーティング
     path('pokemon_list/', pokemon_list_view.PokemonListView.as_view(), name='pokemon_list'),
+    # パーティー一覧取得のルーティング
+    path('party_list/', party_list_view.PartyListView.as_view(), name='party_list'),    
     # パーティー登録のルーティング
     path('party_register/', party_register_view.PartyRegisterView.as_view(), name='party_register'),
     # パーティー登録画面でのグリッド毎のポケモン情報取得のルーティング
     path('party_grid/', party_grid_pokemon_view.PartyGridView.as_view(), name='party_grid'),
+    # 登録パーティー名でポケモン6匹を取得するルーティング
+    path('party_name_pokemon/', party_name_pokemon_view.PartyNamePokemonView.as_view(), name='party_name_pokemon'),
     # 性格取得のルーティング
     path('personality/', personality_view.PersonalityView.as_view(), name='personality'),
     # 個性取得のルーティング

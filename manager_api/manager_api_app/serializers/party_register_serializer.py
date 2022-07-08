@@ -12,13 +12,21 @@ class PartySerializer(serializers.ModelSerializer):
         # エラーメッセージ
         message = ""
         
-    def validate_party_name(self, data):
+    def validate_party_name_blank(self, data):
         """パーティーの名前を必須パラメータにする"""
         if data == None:
             # UIでスナックバーに表示するメッセージ
             message = "パーティーの名前を入力しないと登録できません。"
             raise serializers.ValidationError({"error_message": message})
         
+    def validate_party_name_same(self, data):
+        """パーティーの名前を一意のパラメータにする"""
+        obj = MstParty.objects.filter(party_name=data)
+        if obj:
+            # UIでスナックバーに表示するメッセージ
+            message = "パーティーの名前が既に登録済みなので登録できません。"
+            raise serializers.ValidationError({"error_message": message})        
+
     def validate_party_pokemon_blank(self, data):
         """ポケモン6匹を必須パラメータにする"""
         if data == None:

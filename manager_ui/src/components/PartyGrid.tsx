@@ -53,7 +53,7 @@ export default function PartyGrid() {
   // 現在クリックしたパーティグリッドのNo.
   const [gridNo, setGridNo] = React.useState<Number>();
   // パーティー名を格納する変数
-  const [partyName, setPartyName] = React.useState<String>();
+  const [partyName, setPartyName] = React.useState<any>();
 
   // 登録用ダイアログを開く処理
   const AddDialogOpen = (index: number) => {
@@ -70,8 +70,18 @@ export default function PartyGrid() {
   // テキストエリアで変更したパーティー名を保持する処理
   const partyNameChange = (event: any) => {
     setPartyName(() => event.target.value);
-    // console.info(`event:${JSON.stringify(partyName)}`);
   }
+
+  // グリッド内の値とパーティー名を初期化する処理
+  const initialGrid = () => {
+    setCurrentSelectPokemon1(null);
+    setCurrentSelectPokemon2(null);
+    setCurrentSelectPokemon3(null);
+    setCurrentSelectPokemon4(null);
+    setCurrentSelectPokemon5(null);
+    setCurrentSelectPokemon6(null);
+    setPartyName("");
+  }  
 
   // APIへ渡すデータの定義
   const data = {
@@ -88,13 +98,14 @@ export default function PartyGrid() {
   const partyRegister = () => {
     axios.post(process.env.REACT_APP_API_URL + 'party_register/', data,)
     .then(response=>{
-      window.console.info(`axios-SUCCEED:${JSON.stringify(response.data.records)}`);
       setSeverity("success");
       setMessage("パーティーの登録が完了しました。");
+      // パーティー登録後にグリッドを全て初期化する
+      initialGrid();
     })
     .catch(error=>{
       // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
-      window.console.info(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
+      window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
       setSeverity("error");
       setMessage(error.response.data.error_message);
     })
@@ -128,7 +139,14 @@ export default function PartyGrid() {
       // どのグリッドが選択されたかのインデックス
        gridNo={gridNo}
       /> : ""}
-      <PartySelect />
+      <PartySelect
+        setCurrentSelectPokemon1={setCurrentSelectPokemon1}
+        setCurrentSelectPokemon2={setCurrentSelectPokemon2}
+        setCurrentSelectPokemon3={setCurrentSelectPokemon3}
+        setCurrentSelectPokemon4={setCurrentSelectPokemon4}
+        setCurrentSelectPokemon5={setCurrentSelectPokemon5}
+        setCurrentSelectPokemon6={setCurrentSelectPokemon6}      
+      />
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 4, md: 12 }}>
             {Array.from(Array(6)).map((_, index) => (

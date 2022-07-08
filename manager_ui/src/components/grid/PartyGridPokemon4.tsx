@@ -25,7 +25,6 @@ const PartyGridPokemon4 = (props: any) => {
         }
       })
       .then(response=>{
-            window.console.info(`axios-SUCCEED:${JSON.stringify(response.data.records[0])}`);
             if (props.index === 3) {
                 const keyLst = [];
                 const valueLst = [];
@@ -37,7 +36,7 @@ const PartyGridPokemon4 = (props: any) => {
             }
         })
         .catch(error=>{
-            window.console.info(`axios-FAILED:${error}`);
+            window.console.error(`axios-FAILED:${error}`);
         })
     }
 

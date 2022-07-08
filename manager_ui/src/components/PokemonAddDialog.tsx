@@ -28,33 +28,38 @@ export default function PokemonAddDialog(props: any) {
     const getPokemonList = () => {
       axios.get(process.env.REACT_APP_API_URL + 'pokemon_list/')
       .then(response=>{
-        // window.console.info(`axios-SUCCEED:${JSON.stringify(response.data.records)}`);
         response.data.records.forEach((element: any) => {
           // ループ前の配列を分解して新たにループ後のポケモン名を一つずつ格納する
           setPokemonList((prevState) => ([ ...prevState, element.poke_name ]));
         })
       })
       .catch(error=>{
-        window.console.info(`axios-FAILED:${error}`);
+        window.console.error(`axios-FAILED:${error}`);
       })
     }
 
-    // ダイアログ内のポケモンが選択された際の登録処理
+    // ダイアログ内のポケモンが選択された際の非同期登録処理
     // クリックされたグリッド番号ごとに登録するstateを分岐
-    const handleChange = (event: any) => {
+    const handleChange = async (event: any) => {
       window.console.info("パーティーへのポケモン登録完了");
-      window.console.info(event.target.outerText);
+      // awaitでグリッドの値を空にしてから値を更新する
       if (props.gridNo === 0) {
+        await props.setCurrentSelectPokemon1();
         props.setCurrentSelectPokemon1(event.target.outerText);
       } else if (props.gridNo === 1) {
+        await props.setCurrentSelectPokemon2();
         props.setCurrentSelectPokemon2(event.target.outerText);
       } else if (props.gridNo === 2) {
+        await props.setCurrentSelectPokemon3();
         props.setCurrentSelectPokemon3(event.target.outerText);
       } else if (props.gridNo === 3) {
+        await props.setCurrentSelectPokemon4();
         props.setCurrentSelectPokemon4(event.target.outerText);
       } else if (props.gridNo === 4) {
+        await props.setCurrentSelectPokemon5();
         props.setCurrentSelectPokemon5(event.target.outerText);
       } else if (props.gridNo === 5) {
+        await props.setCurrentSelectPokemon6();
         props.setCurrentSelectPokemon6(event.target.outerText);
       }
       props.setOpen(false);
@@ -80,8 +85,8 @@ export default function PokemonAddDialog(props: any) {
         <DialogContent>
           <DialogContentText>
           <FormControl sx={{ m: 1, minWidth: 200 }}>
-              {/* DBから取得した登録済みポケモン一覧をダイアログ内に表示する */}
-              {pokemonList.map((element: string, index: number) => (
+              {/* DBから取得した登録済みポケモン一覧を名前昇順でダイアログ内に表示する */}
+              {pokemonList.sort().map((element: string, index: number) => (
                 <MenuItem
                  value={element} 
                  key={index}
