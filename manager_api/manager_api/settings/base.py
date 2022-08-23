@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # ディレクトリを分けたのでparent階層を一つ深くする(2個から3個)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -30,6 +31,12 @@ INSTALLED_APPS = [
     # --------------------- ---------------------------------------------------
     'rest_framework',
     'corsheaders',
+    # デバッグ用は下記の内どちらか(両立不可)
+    # 'debug_toolbar',
+    'silk',
+    # JWT認証関係の追加
+    'rest_framework.authtoken',
+    'djoser',
 ]
 
 # ------------------------------------------------------------------------
@@ -56,7 +63,17 @@ MIDDLEWARE = [
     # ------------------------------------------------------------------------
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # デバッグ用は下記の内どちらか(両立不可)
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
+
+# django-debug-toolbar 使えるIPアドレス
+INTERNAL_IPS = ['127.0.0.1']
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
+}
 
 ROOT_URLCONF = 'manager_api.urls'
 
@@ -77,6 +94,34 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'manager_api.wsgi.application'
+
+# JWT認証関係の設定
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        #Simple JWTを読み込む
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+
+SIMPLE_JWT = {
+    #トークンの時間を5分に設定
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': False,
+    #暗号のアルゴリズム設定
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
 
 DATABASES = {
     'default': {

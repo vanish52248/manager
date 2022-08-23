@@ -1,8 +1,10 @@
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+import debug_toolbar
 from manager_api_app.views import (
     party_register_view, personality_view, identity_view, item_view,
     pokemon_register_view, pokemon_list_view, party_list_view, party_grid_pokemon_view,
-    party_name_pokemon_view, 
+    party_name_pokemon_view, battle_record_register_view, battle_result_count_view,
 )
 
 urlpatterns = [
@@ -24,4 +26,20 @@ urlpatterns = [
     path('identity/', identity_view.IdentityView.as_view(), name='identity'),
     # 持ち物取得のルーティング
     path('item/', item_view.ItemView.as_view(), name='item'),
+    # バトル戦績登録のルーティング
+    path('battle_record_register/', battle_record_register_view.BattleRecordRegisterView.as_view(), name='battle_record_register'),
+    # バトル対戦結果取得のルーティング
+    path('battle_result_count/', battle_result_count_view.BattleResultCountView.as_view(), name='battle_result_count'),
 ]
+
+# django-debug-toolbar用ルーティング
+# '__debug__/'は他のURLに影響を及ぼさないならなんでも良い
+# http://127.0.0.1:8000/manager_api_app/ にアクセスで確認できる(UIもAPIもDjangoで実装してるならこっち)
+# if settings.DEBUG:
+#     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
+
+# django-silk用ルーティング
+# http://127.0.0.1:8000/manager_api_app/silk/ にアクセス後に
+# 別タブでAPI取得するとSQLなどわかる(APIのみDjangoで実装してるならこっち)
+urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
+
