@@ -12,12 +12,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+// ①ユニバーサルクッキーをインポート
+import Cookies from 'universal-cookie';
 
 export default function PokemonAddDialog(props: any) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
     // DBから取得した登録済みポケモンを格納する配列
     const [pokemonList, setPokemonList] = useState<any[]>([]);
+    // ②cookieを取得するインスタンスの作成
+    const cookies = new Cookies();
 
     // ダイアログオープン時に毎回最初に起動させる処理
     useEffect(() => {
@@ -26,7 +30,14 @@ export default function PokemonAddDialog(props: any) {
     
     // 登録済みポケモン一覧をDBから取得する処理
     const getPokemonList = () => {
-      axios.get(process.env.REACT_APP_API_URL + 'pokemon_list/')
+      // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+      axios.get(process.env.REACT_APP_API_URL + 'v1/pokemon_list/', {
+        // ④header情報にcookieのアクセストークンを載せて通信する
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `JWT ${cookies.get('accesstoken')}`
+        }
+      })
       .then(response=>{
         response.data.records.forEach((element: any) => {
           // ループ前の配列を分解して新たにループ後のポケモン名を一つずつ格納する

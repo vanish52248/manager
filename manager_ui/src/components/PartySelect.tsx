@@ -8,15 +8,19 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { Select } from '@mui/material';
+// ①ユニバーサルクッキーをインポート
+import Cookies from 'universal-cookie';
 
 export default function PartySelect(props: any) {
   // DBから取得した登録済みパーティー名を格納する配列
   const [partyList, setPartyList] = React.useState<any[]>([]);
+  // ②cookieを取得するインスタンスの作成
+  const cookies = new Cookies();
 
   // ダイアログオープン時に毎回最初に起動させる処理
   useEffect(() => {
     getPartyList()
-    },[])
+  },[])
 
   // グリッド内の値を初期化する処理
   const initialGrid = () => {
@@ -30,9 +34,15 @@ export default function PartySelect(props: any) {
     
   // プルダウンを切り替えた時のパーティー取得処理
   const handleChange = (event: any) => {
-    axios.get(process.env.REACT_APP_API_URL + 'party_name_pokemon/', {
+    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+    axios.get(process.env.REACT_APP_API_URL + 'v1/party_name_pokemon/', {
       params: {
         party_name: event.target.value,
+      },
+      // ④header情報にcookieのアクセストークンを載せて通信する
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${cookies.get('accesstoken')}`
       }
     })
     .then(response=>{
@@ -61,31 +71,38 @@ export default function PartySelect(props: any) {
     })
   };
 
-    // 登録済みパーティー一覧をDBから取得する処理
-    const getPartyList = () => {
-      axios.get(process.env.REACT_APP_API_URL + 'party_list/')
-      .then(response=>{
-        // 重複がない値のみを格納する配列
-        const uniqueList: any[] = [];
-        response.data.records.forEach((element: any) => {
-          // ループごとの現在のパーティー名を設定する変数
-          const currentValue = element.party_name;
-          // 重複がない値ならループ前の配列を分解して新たにループ後のパーティー名を一つずつ格納する
-          if (!uniqueList.includes(currentValue)) {
-            uniqueList.push(currentValue);
-            setPartyList((prevState) => ([ ...prevState, element.party_name ]));
-          }
-        })
+  // 登録済みパーティー一覧をDBから取得する処理
+  const getPartyList = () => {
+    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+    axios.get(process.env.REACT_APP_API_URL + 'v1/party_list/', {
+      // ④header情報にcookieのアクセストークンを載せて通信する
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${cookies.get('accesstoken')}`
+       }
+    })
+    .then(response=>{
+      // 重複がない値のみを格納する配列
+      const uniqueList: any[] = [];
+      response.data.records.forEach((element: any) => {
+        // ループごとの現在のパーティー名を設定する変数
+        const currentValue = element.party_name;
+        // 重複がない値ならループ前の配列を分解して新たにループ後のパーティー名を一つずつ格納する
+        if (!uniqueList.includes(currentValue)) {
+          uniqueList.push(currentValue);
+          setPartyList((prevState) => ([ ...prevState, element.party_name ]));
+        }
       })
-      .catch(error=>{
-        window.console.error(`axios-FAILED:${error}`);
-      })
-    }
+    })
+    .catch(error=>{
+      window.console.error(`axios-FAILED:${error}`);
+    })
+  }
   
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 500 }}>
+      <FormControl sx={{ m: 1, minWidth: 500 }} >
         <InputLabel id="demo-simple-select-autowidth-label">パーティー選択</InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"

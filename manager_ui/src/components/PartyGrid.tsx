@@ -11,6 +11,8 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+// ①ユニバーサルクッキーをインポート
+import Cookies from 'universal-cookie';
 
 import PartySelect from './PartySelect';
 import PokemonAddDialog from './PokemonAddDialog';
@@ -54,6 +56,8 @@ export default function PartyGrid() {
   const [gridNo, setGridNo] = React.useState<Number>();
   // パーティー名を格納する変数
   const [partyName, setPartyName] = React.useState<any>();
+  // ②cookieを取得するインスタンスの作成
+  const cookies = new Cookies();
 
   // 登録用ダイアログを開く処理
   const AddDialogOpen = (index: number) => {
@@ -96,7 +100,14 @@ export default function PartyGrid() {
 
   // 登録ボタンクリック時の処理
   const partyRegister = () => {
-    axios.post(process.env.REACT_APP_API_URL + 'party_register/', data,)
+    // ③axios.post()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+    axios.post(process.env.REACT_APP_API_URL + 'v1/party_register/', data,{
+      // ④header情報にcookieのアクセストークンを載せて通信する
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${cookies.get('accesstoken')}`
+      }
+    })
     .then(response=>{
       setSeverity("success");
       setMessage("パーティーの登録が完了しました。");

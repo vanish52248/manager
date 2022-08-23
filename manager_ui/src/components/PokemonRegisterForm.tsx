@@ -10,8 +10,11 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+// ①ユニバーサルクッキーをインポート
+import Cookies from 'universal-cookie';
 
 import { SnackBar } from './SnackBar';
+import ProgressBar from './ProgressBar';
 import '../css/PokemonRegisterForm.css'
 
 export default function PokemonRegisterForm() {
@@ -20,14 +23,14 @@ export default function PokemonRegisterForm() {
   const [messageState, setMessage] = useState<any>("");
   // スナックバーの色を判定する変数
   const [severity, setSeverity] = useState<any>("");
-
+  // プログレスバー出現を判定する変数
+  const [progress, setProgress] = useState<Boolean>(true);
   // DBから取得した性格を格納する配列
   const [personalityList, setPersonalityList] = useState<any[]>([]);
   // DBから取得した個性を格納する配列
   const [identityList, setIdentityList] = useState<any[]>([]);
   // DBから取得した持ち物を格納する配列
   const [itemList, setItemList] = useState<any[]>([]);
-
   // ポケモン名を格納する変数
   const [pokemonName, setPokemonName] = useState<any>();
   // LVを格納する変数
@@ -62,204 +65,237 @@ export default function PokemonRegisterForm() {
   const [specialDefenceEffort, setSpecialDefenceEffort] = useState<any>();
   // 素早さ努力値を格納する変数
   const [speedEffort, setSpeedEffort] = useState<any>();
+  // ②cookieを取得するインスタンスの作成
+  const cookies = new Cookies();
 
   // 初回起動時に非同期で読み込む処理
-    useEffect(() => {
-      (async () => {
-        getPersonality();
-        getIdentity();
-        getItem();
-      })();
-    }, []);
+  useEffect(() => {
+    (async() => {
+      // setProgress(true);
+      getPersonality();
+      getIdentity();
+      getItem();
+    })();
+  }, []);
 
-    // APIへ渡すデータの定義
-    const data = {
-      pokemonName: pokemonName,
-      level: level,
-      personality: personality,
-      identity: identity,
-      item: item,
-      hp: hp,
-      attack: attack,
-      defence: defence,
-      specialAttack: specialAttack,
-      specialDefence: specialDefence,
-      speed: speed,
-      hpEffort: hpEffort,
-      attackEffort: attackEffort,
-      defenceEffort: defenceEffort,
-      specialAttackEffort: specialAttackEffort,
-      specialDefenceEffort: specialDefenceEffort,
-      speedEffort: speedEffort,
-    }
+  // APIへ渡すデータの定義
+  const data = {
+    pokemonName: pokemonName,
+    level: level,
+    personality: personality,
+    identity: identity,
+    item: item,
+    hp: hp,
+    attack: attack,
+    defence: defence,
+    specialAttack: specialAttack,
+    specialDefence: specialDefence,
+    speed: speed,
+    hpEffort: hpEffort,
+    attackEffort: attackEffort,
+    defenceEffort: defenceEffort,
+    specialAttackEffort: specialAttackEffort,
+    specialDefenceEffort: specialDefenceEffort,
+    speedEffort: speedEffort,
+  }
 
-    // 登録ボタンクリック時にAPIへ入力データを渡す処理
-    const pokemonClickRegister = () => {
-      axios.post(process.env.REACT_APP_API_URL + 'pokemon_register/', data,)
-      .then(response=>{
-        setSeverity("success");
-        setMessage("ポケモンの登録が完了しました。");
-        // ポケモン登録後に入力値を全て初期化する
-        initialData();
+  // 登録ボタンクリック時にAPIへ入力データを渡す処理
+  const pokemonClickRegister = () => {
+    // ③axios.post()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+    axios.post(process.env.REACT_APP_API_URL + 'v1/pokemon_register/', data,{
+      // ④header情報にcookieのアクセストークンを載せて通信する
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${cookies.get('accesstoken')}`
+      }      
+    })
+    .then(response=>{
+      setSeverity("success");
+      setMessage("ポケモンの登録が完了しました。");
+      // ポケモン登録後に入力値を全て初期化する
+      initialData();
+    })
+    .catch(error=>{
+      // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
+      window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
+      setSeverity("error");
+      setMessage(error.response.data.error_message);
+    })
+  }
+
+  // APIへ渡したデータをクリアする処理
+  const initialData = async () => {
+    setPokemonName("");
+    setLevel("未選択");
+    setPersonality("未選択");
+    setIdentity("未選択");
+    setItem("未選択");
+    setHp("");
+    setAttack("");
+    setDefence("");
+    setSpecialAttack("");
+    setSpecialDefence("");
+    setSpeed("");
+    setHpEffort("");
+    setAttackEffort("");
+    setDefenceEffort("");
+    setSpecialAttackEffort("");
+    setSpecialDefenceEffort("");
+    setSpeedEffort("");
+  }
+
+  // 性格一覧をDBから取得する処理
+  const getPersonality = () => {
+    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+    axios.get(process.env.REACT_APP_API_URL + 'v1/personality/', {
+      // ④header情報にcookieのアクセストークンを載せて通信する
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${cookies.get('accesstoken')}`
+      }
+    })
+    .then(response=>{
+      response.data.records.forEach((element: any) => {
+        // ループ前の配列を分解して新たにループ後の性格を一つずつ格納する
+        setPersonalityList((prevState) => ([ ...prevState, element.category ]));
       })
-      .catch(error=>{
-        // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
-        window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
-        setSeverity("error");
-        setMessage(error.response.data.error_message);
+    })
+    .catch(error=>{
+      window.console.error(`axios-FAILED:${error}`);
+    })
+  }
+
+  // 個性一覧をDBから取得する処理
+  const getIdentity = () => {
+    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+    axios.get(process.env.REACT_APP_API_URL + 'v1/identity/', {
+      // ④header情報にcookieのアクセストークンを載せて通信する
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${cookies.get('accesstoken')}`
+      }      
+    })
+    .then(response=>{
+      response.data.records.forEach((element: any) => {
+        // ループ前の配列を分解して新たにループ後の個性を一つずつ格納する
+        setIdentityList((prevState) => ([ ...prevState, element.category ]));
       })
-    }
+    })
+    .catch(error=>{
+      window.console.error(`axios-FAILED:${error}`);
+    })
+  }
 
-    // APIへ渡したデータをクリアする処理
-    const initialData = async () => {
-      setPokemonName("");
-      setLevel("未選択");
-      setPersonality("未選択");
-      setIdentity("未選択");
-      setItem("未選択");
-      setHp("");
-      setAttack("");
-      setDefence("");
-      setSpecialAttack("");
-      setSpecialDefence("");
-      setSpeed("");
-      setHpEffort("");
-      setAttackEffort("");
-      setDefenceEffort("");
-      setSpecialAttackEffort("");
-      setSpecialDefenceEffort("");
-      setSpeedEffort("");
-    }
-
-    // 性格一覧をDBから取得する処理
-    const getPersonality = () => {
-      axios.get(process.env.REACT_APP_API_URL + 'personality/')
-      .then(response=>{
-        response.data.records.forEach((element: any) => {
-          // ループ前の配列を分解して新たにループ後の性格を一つずつ格納する
-          setPersonalityList((prevState) => ([ ...prevState, element.category ]));
-        })
+  // 持ち物一覧をDBから取得する処理
+  const getItem = () => {
+    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+    axios.get(process.env.REACT_APP_API_URL + 'v1/item/', {
+      // ④header情報にcookieのアクセストークンを載せて通信する
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${cookies.get('accesstoken')}`
+      }      
+    })
+    .then(response=>{
+      response.data.records.forEach((element: any) => {
+        // ループ前の配列を分解して新たにループ後の持ち物を一つずつ格納する
+        setItemList((prevState) => ([ ...prevState, element.category ]));
       })
-      .catch(error=>{
-        window.console.error(`axios-FAILED:${error}`);
-      })
-    }
+    })
+    .catch(error=>{
+      window.console.error(`axios-FAILED:${error}`);
+    })
+  }
 
-    // 個性一覧をDBから取得する処理
-    const getIdentity = () => {
-      axios.get(process.env.REACT_APP_API_URL + 'identity/')
-      .then(response=>{
-        response.data.records.forEach((element: any) => {
-          // ループ前の配列を分解して新たにループ後の個性を一つずつ格納する
-          setIdentityList((prevState) => ([ ...prevState, element.category ]));
-        })
-      })
-      .catch(error=>{
-        window.console.error(`axios-FAILED:${error}`);
-      })
-    }
+  // テキストエリアで変更したポケモン名を保持する処理
+  const pokemonChange = (event: any) => {
+    setPokemonName(() => event.target.value);
+  };
 
-    // 持ち物一覧をDBから取得する処理
-    const getItem = () => {
-      axios.get(process.env.REACT_APP_API_URL + 'item/')
-      .then(response=>{
-        response.data.records.forEach((element: any) => {
-          // ループ前の配列を分解して新たにループ後の持ち物を一つずつ格納する
-          setItemList((prevState) => ([ ...prevState, element.category ]));
-        })
-      })
-      .catch(error=>{
-        window.console.error(`axios-FAILED:${error}`);
-      })
-    }
+  // プルダウンで変更したLVを保持する処理
+  const levelChange = (event: any) => {
+    setLevel(() => event.target.value);
+  };
 
-    // テキストエリアで変更したポケモン名を保持する処理
-    const pokemonChange = (event: any) => {
-      setPokemonName(() => event.target.value);
-    };
+  // プルダウンで変更した性格を保持する処理
+  const personalityChange = (event: any) => {
+    setPersonality(() => event.target.value);
+  };
 
-    // プルダウンで変更したLVを保持する処理
-    const levelChange = (event: any) => {
-      setLevel(() => event.target.value);
-    };
+  // プルダウンで変更した個性を保持する処理
+  const identityChange = (event: any) => {
+    setIdentity(() => event.target.value);
+  };
 
-    // プルダウンで変更した性格を保持する処理
-    const personalityChange = (event: any) => {
-      setPersonality(() => event.target.value);
-    };
+  // プルダウンで変更した持ち物を保持する処理
+  const itemChange = (event: any) => {
+    setItem(() => event.target.value);
+  };
 
-    // プルダウンで変更した個性を保持する処理
-    const identityChange = (event: any) => {
-      setIdentity(() => event.target.value);
-    };
+  // テキストエリアで変更したHPを保持する処理
+  const hpChange = (event: any) => {
+    setHp(() => event.target.value);
+  };
 
-    // プルダウンで変更した持ち物を保持する処理
-    const itemChange = (event: any) => {
-      setItem(() => event.target.value);
-    };
+  // テキストエリアで変更した攻撃を保持する処理
+  const attackChange = (event: any) => {
+    setAttack(() => event.target.value);
+  };
 
-    // テキストエリアで変更したHPを保持する処理
-    const hpChange = (event: any) => {
-      setHp(() => event.target.value);
-    };
+  // テキストエリアで変更した防御を保持する処理
+  const defenceChange = (event: any) => {
+    setDefence(() => event.target.value);
+  };
 
-    // テキストエリアで変更した攻撃を保持する処理
-    const attackChange = (event: any) => {
-      setAttack(() => event.target.value);
-    };
+  // テキストエリアで変更した特殊攻撃を保持する処理
+  const specialAttackChange = (event: any) => {
+    setSpecialAttack(() => event.target.value);
+  };
 
-    // テキストエリアで変更した防御を保持する処理
-    const defenceChange = (event: any) => {
-      setDefence(() => event.target.value);
-    };
+  // テキストエリアで変更した特殊防御を保持する処理
+  const specialDefenceChange = (event: any) => {
+    setSpecialDefence(() => event.target.value);
+  };
 
-    // テキストエリアで変更した特殊攻撃を保持する処理
-    const specialAttackChange = (event: any) => {
-      setSpecialAttack(() => event.target.value);
-    };
+  // テキストエリアで変更した素早さを保持する処理
+  const speedChange = (event: any) => {
+    setSpeed(() => event.target.value);
+  };
 
-    // テキストエリアで変更した特殊防御を保持する処理
-    const specialDefenceChange = (event: any) => {
-      setSpecialDefence(() => event.target.value);
-    };
+  // テキストエリアで変更したHP努力値を保持する処理
+  const hpEffortChange = (event: any) => {
+    setHpEffort(() => event.target.value);
+  };
 
-    // テキストエリアで変更した素早さを保持する処理
-    const speedChange = (event: any) => {
-      setSpeed(() => event.target.value);
-    };
+  // テキストエリアで変更した攻撃努力値を保持する処理
+  const attackEffortChange = (event: any) => {
+    setAttackEffort(() => event.target.value);
+  };
 
-    // テキストエリアで変更したHP努力値を保持する処理
-    const hpEffortChange = (event: any) => {
-      setHpEffort(() => event.target.value);
-    };
+  // テキストエリアで変更した防御努力値を保持する処理
+  const defenceEffortChange = (event: any) => {
+    setDefenceEffort(() => event.target.value);
+  };
 
-    // テキストエリアで変更した攻撃努力値を保持する処理
-    const attackEffortChange = (event: any) => {
-      setAttackEffort(() => event.target.value);
-    };
+  // テキストエリアで変更した特殊攻撃努力値を保持する処理
+  const specialAttackEffortChange = (event: any) => {
+    setSpecialAttackEffort(() => event.target.value);
+  };
 
-    // テキストエリアで変更した防御努力値を保持する処理
-    const defenceEffortChange = (event: any) => {
-      setDefenceEffort(() => event.target.value);
-    };
+  // テキストエリアで変更した特殊防御努力値を保持する処理
+  const specialDefenceEffortChange = (event: any) => {
+    setSpecialDefenceEffort(() => event.target.value);
+  };
 
-    // テキストエリアで変更した特殊攻撃努力値を保持する処理
-    const specialAttackEffortChange = (event: any) => {
-      setSpecialAttackEffort(() => event.target.value);
-    };
-
-    // テキストエリアで変更した特殊防御努力値を保持する処理
-    const specialDefenceEffortChange = (event: any) => {
-      setSpecialDefenceEffort(() => event.target.value);
-    };
-
-    // テキストエリアで変更した素早さ努力値を保持する処理
-    const speedEffortChange = (event: any) => {
-      setSpeedEffort(() => event.target.value);
-    };
+  // テキストエリアで変更した素早さ努力値を保持する処理
+  const speedEffortChange = (event: any) => {
+    setSpeedEffort(() => event.target.value);
+  };
 
   return (
     <>
+    {/* TODO: データの読み込みが終了するまでプログレスバーを描画する */}
+      {/* {progress ? <ProgressBar/> : null} */}
     {/* success/errorメッセージがstateに設定されたらスナックバーをそれぞれの色で描画 */}
       {messageState !== "" ? <SnackBar severity={severity} message={messageState}/> : null}
     <Box
@@ -318,7 +354,7 @@ export default function PokemonRegisterForm() {
                         <em>未選択</em>
                       </MenuItem>
                       {/* DBから取得した性格一覧をプルダウンに表示する */}
-                      {personalityList.map((element: string, index: number) => (
+                      {personalityList.sort().map((element: string, index: number) => (
                         <MenuItem
                           value={personality === "未選択" ? "" : element}
                           key={index}>
@@ -339,7 +375,7 @@ export default function PokemonRegisterForm() {
                         <em>未選択</em>
                       </MenuItem>
                       {/* DBから取得した個性一覧をプルダウンに表示する */}
-                      {identityList.map((element: string, index: number) => (
+                      {identityList.sort().map((element: string, index: number) => (
                         <MenuItem
                         value={identity === "未選択" ? "" : element}
                         key={index}>
@@ -361,7 +397,7 @@ export default function PokemonRegisterForm() {
                           <em>未選択</em>
                         </MenuItem>
                       {/* DBから取得した持ち物一覧をプルダウンに表示する */}
-                      {itemList.map((element: string, index: number) => (
+                      {itemList.sort().map((element: string, index: number) => (
                         <MenuItem
                         value={item === "未選択" ? "" : element}
                          key={index}>

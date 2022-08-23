@@ -2,12 +2,16 @@
 import React, { useState, useEffect } from 'react'
 
 import axios from 'axios'
+// ①ユニバーサルクッキーをインポート
+import Cookies from 'universal-cookie';
 
 import '../../css/PartyGridPokemon.css';
 
 const PartyGridPokemon3 = (props: any) => {
-    // // DBから取得したダイアログごとに表示するポケモン情報を格納する配列
+    // DBから取得したダイアログごとに表示するポケモン情報を格納する配列
     const [pokemonValueList, setPokemonValueList] = useState<any>([]);
+    // ②cookieを取得するインスタンスの作成
+    const cookies = new Cookies();
 
     // ダイアログからポケモン情報取得時に毎回最初に起動させる処理
     useEffect(() => {
@@ -17,11 +21,17 @@ const PartyGridPokemon3 = (props: any) => {
     // グリッド毎に一致したポケモン情報をDBから取得する処理
     // GETの場合はクエリストリングにパラメータ乗せるか"option"でパラメータつける方法で使用
     const getPokemonList = () => {
-      axios.get(process.env.REACT_APP_API_URL + 'party_grid/', {
+      // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
+      axios.get(process.env.REACT_APP_API_URL + 'v1/party_grid/', {
         params: {
             // ポケモンの名前とグリッドの番号をパラメータとしてAPIに渡す
             pokemon_name3: (props.currentSelectPokemon3),
             index: props.index,
+        },
+        // ④header情報にcookieのアクセストークンを載せて通信する
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `JWT ${cookies.get('accesstoken')}`
         }
       })
       .then(response=>{
