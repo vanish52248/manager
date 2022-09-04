@@ -134,8 +134,8 @@ DATABASES = {
         'PASSWORD': 'hosiimiki2',
         # default設定のまま設定
         'HOST': 'localhost',
-        # 3305ならMariaDB, 3306ならMySQL
-        'PORT': '3305',
+        # MariaDBの使用するポートはMySQLと同じ3306になる
+        'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         }

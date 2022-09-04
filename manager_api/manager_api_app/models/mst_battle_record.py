@@ -65,3 +65,8 @@ class MstBattleRecord(models.Model):
         verbose_name = ("バトル戦績の登録")
         # テーブル名を下記にリネーム
         db_table = 'battle_record'
+    
+    # 管理サイト上での表示名をobject表記から任意のカラム名に変更する
+    def __str__(self):
+        return self.my_pokemon
+    

@@ -41,3 +41,7 @@ class MstParty(models.Model):
         verbose_name = ("パーティの登録")
         # テーブル名を下記にリネーム
         db_table = 'party'
+
+    # 管理サイト上での表示名をobject表記から任意のカラム名に変更する
+    def __str__(self):
+        return self.party_name

@@ -1,9 +1,12 @@
 .grid_wrapper {
-    background-image: url(../images/menu_bg2.jpg);
+    /* background-image: url(../images/menu_bg2.jpg);
     height: 100vh;
     background-size: cover;
-    background-position: center center;
+    background-position: center center; */
+    position: absolute;
+    top: 10%;
 }
+
 
 .menu_grid_item {
     width: 100%;
