@@ -2,12 +2,14 @@ from django.urls import path, include
 from django.conf import settings
 import debug_toolbar
 from manager_api_app.views import (
-    party_register_view, personality_view, identity_view, item_view,
-    pokemon_register_view, pokemon_list_view, party_list_view, party_grid_pokemon_view,
-    party_name_pokemon_view, battle_record_register_view, battle_result_count_view,
+    party_register_view, pokemon_register_view, pokemon_list_view,
+    party_list_view, party_grid_pokemon_view, party_name_pokemon_view,
+    battle_record_register_view, battle_result_count_view, account_register_view,
 )
 
 urlpatterns = [
+    # アカウント登録のルーティング
+    path('account_register/', account_register_view.AccountRegisterView.as_view(), name='account_register'),
     # ポケモン登録のルーティング
     path('pokemon_register/', pokemon_register_view.PokemonRegisterView.as_view(), name='pokemon_register'),
     # ポケモン一覧取得のルーティング
@@ -20,12 +22,6 @@ urlpatterns = [
     path('party_grid/', party_grid_pokemon_view.PartyGridView.as_view(), name='party_grid'),
     # 登録パーティー名でポケモン6匹を取得するルーティング
     path('party_name_pokemon/', party_name_pokemon_view.PartyNamePokemonView.as_view(), name='party_name_pokemon'),
-    # 性格取得のルーティング
-    path('personality/', personality_view.PersonalityView.as_view(), name='personality'),
-    # 個性取得のルーティング
-    path('identity/', identity_view.IdentityView.as_view(), name='identity'),
-    # 持ち物取得のルーティング
-    path('item/', item_view.ItemView.as_view(), name='item'),
     # バトル戦績登録のルーティング
     path('battle_record_register/', battle_record_register_view.BattleRecordRegisterView.as_view(), name='battle_record_register'),
     # バトル対戦結果取得のルーティング

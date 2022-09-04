@@ -118,3 +118,7 @@ class MstPokemon(models.Model):
         verbose_name = ("ポケモンの登録")
         # テーブル名を下記にリネーム
         db_table = 'pokemon'
+
+    # 管理サイト上での表示名をobject表記から任意のカラム名に変更する
+    def __str__(self):
+        return self.poke_name

@@ -36,7 +36,7 @@ export default function MenuButtons() {
         className='button_container'
         sx={{
           '& > *': {
-            m: 2,
+            m: 4,
           },
         }}
         >

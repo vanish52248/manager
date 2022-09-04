@@ -10,16 +10,40 @@ import PokemonRegister from './components/PokemonRegister';
 import BattleRecord from './components/BattleRecord';
 import PokemonSelectionRate from './components/PokemonSelectionRate';
 import Login from './components/Login';
-import Logout from './components/Logout';
-import Signup from './components/Signup';
+import SignUp from './components/SignUp';
+import NotFound from './components/NotFound';
+
+
+// 認証されていない場合、ログインページにリダイレクトする処理
+const RequireAuth = ( props: any ) => {
+    const loginStatus = localStorage.getItem("login");
+    // ローカルストレージにTrueがある(ログイン済みの場合)、渡されたコンポーネントをレンダリング
+    if (loginStatus === "true") {
+        return props.component;
+    }
+    // 未ログインの場合、ログインページへリダイレクト
+    document.location = "/";
+  }
+
+// 非認証確認メソッド
+const RequireNoAuth = ( props: any) => { 
+    const loginStatus = localStorage.getItem("login");
+
+    // 未ログインの場合、渡されたコンポーネントをレンダリング
+    // ※ ログインページに適用
+    if(loginStatus == null || loginStatus === "false"){
+      return props.component;
+    }
+    // ログイン済みの場合、メニューページへリダイレクト
+    document.location = "/menu";
+  }
+
 
 export const Path = {
     // ログイン画面
     Login: '/',
-    // ログアウト画面
-    Logout: '/logout',
     // サインアップ画面
-    Signup: '/Signup',
+    SignUp: '/signup',
     // メニュー画面
     Menu: '/menu',
     // パーティー登録画面
@@ -30,26 +54,28 @@ export const Path = {
     BattleRecord: '/battle_record',
     // ポケモン選出率画面
     PokemonSelectionRate: '/pokemon_selection_rate',
+    // NotFound画面
+    NotFound: '/*',
 };
 
 const router = (
     <Routes>
         {/* ログイン画面 */}
-        <Route path={Path.Login} element={<Login/>}></Route>
-        {/* ログアウト画面 */}
-        <Route path={Path.Logout} element={<Logout/>}></Route>
+        <Route path={Path.Login} element={<RequireNoAuth component={<Login />} />} />
         {/* サインアップ画面 */}
-        <Route path={Path.Signup} element={<Signup/>}></Route>
+        <Route path={Path.SignUp} element={<RequireNoAuth component={<SignUp />} />} />
         {/* メニュー画面 */}
-        <Route path={Path.Menu} element={<Menu/>}></Route>
+        <Route path={Path.Menu} element={<RequireAuth component={<Menu />} />} />
         {/* パーティー登録画面 */}
-        <Route path={Path.PartyRegister} element={<PartyRegister/>}></Route>
+        <Route path={Path.PartyRegister} element={<RequireAuth component={<PartyRegister />} />} />
         {/* ポケモン登録画面 */}
-        <Route path={Path.PokemonRegister} element={<PokemonRegister/>}></Route>
+        <Route path={Path.PokemonRegister} element={<RequireAuth component={<PokemonRegister />} />} />
         {/* バトル戦績画面 */}
-        <Route path={Path.BattleRecord} element={<BattleRecord/>}></Route>
+        <Route path={Path.BattleRecord} element={<RequireAuth component={<BattleRecord />} />} />
         {/* ポケモン選出率画面 */}
-        <Route path={Path.PokemonSelectionRate} element={<PokemonSelectionRate/>}></Route>
+        <Route path={Path.PokemonSelectionRate} element={<RequireAuth component={<PokemonSelectionRate />} />} />
+        {/* NotFound画面 */}
+        <Route path={Path.NotFound} element={<NotFound/>}></Route>
     </Routes>
 )
 

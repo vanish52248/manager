@@ -1,9 +1,23 @@
 .header_wrapper {
     display: flex;
-    padding: 10px;
-    border: 1px solid #808080;
-    border-radius: 5px;
     margin: 20px 8px;
     background-color: #fff;
     height: 30px;
+}
+/* 最初のホームアイコン以外を左寄せ */
+.header_wrapper>div:first-of-type{
+    margin-right: auto;
+}
+
+.user_container {
+    line-height: 0px;
+}
+
+.user_name {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.logout_mark {
+   margin: 0 20px;
 }

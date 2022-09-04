@@ -1,5 +1,5 @@
 // ポケモン登録画面のフォームのコンポーネント
-import React, {useEffect, useState} from 'react'
+import React, { useState} from 'react'
 
 import axios from 'axios';
 import Box from '@mui/material/Box';
@@ -13,24 +13,17 @@ import Button from '@mui/material/Button';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+// 定数ファイルからのアイテム・性格・個性のインポート
+import { identityList, itemList, personalityList  } from '../const_';
 import { SnackBar } from './SnackBar';
-import ProgressBar from './ProgressBar';
 import '../css/PokemonRegisterForm.css'
 
 export default function PokemonRegisterForm() {
 
-  //  スナックバーに表示するメッセージの変数
+  // スナックバーに表示するメッセージの変数
   const [messageState, setMessage] = useState<any>("");
   // スナックバーの色を判定する変数
   const [severity, setSeverity] = useState<any>("");
-  // プログレスバー出現を判定する変数
-  const [progress, setProgress] = useState<Boolean>(true);
-  // DBから取得した性格を格納する配列
-  const [personalityList, setPersonalityList] = useState<any[]>([]);
-  // DBから取得した個性を格納する配列
-  const [identityList, setIdentityList] = useState<any[]>([]);
-  // DBから取得した持ち物を格納する配列
-  const [itemList, setItemList] = useState<any[]>([]);
   // ポケモン名を格納する変数
   const [pokemonName, setPokemonName] = useState<any>();
   // LVを格納する変数
@@ -67,16 +60,6 @@ export default function PokemonRegisterForm() {
   const [speedEffort, setSpeedEffort] = useState<any>();
   // ②cookieを取得するインスタンスの作成
   const cookies = new Cookies();
-
-  // 初回起動時に非同期で読み込む処理
-  useEffect(() => {
-    (async() => {
-      // setProgress(true);
-      getPersonality();
-      getIdentity();
-      getItem();
-    })();
-  }, []);
 
   // APIへ渡すデータの定義
   const data = {
@@ -142,69 +125,6 @@ export default function PokemonRegisterForm() {
     setSpecialAttackEffort("");
     setSpecialDefenceEffort("");
     setSpeedEffort("");
-  }
-
-  // 性格一覧をDBから取得する処理
-  const getPersonality = () => {
-    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
-    axios.get(process.env.REACT_APP_API_URL + 'v1/personality/', {
-      // ④header情報にcookieのアクセストークンを載せて通信する
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `JWT ${cookies.get('accesstoken')}`
-      }
-    })
-    .then(response=>{
-      response.data.records.forEach((element: any) => {
-        // ループ前の配列を分解して新たにループ後の性格を一つずつ格納する
-        setPersonalityList((prevState) => ([ ...prevState, element.category ]));
-      })
-    })
-    .catch(error=>{
-      window.console.error(`axios-FAILED:${error}`);
-    })
-  }
-
-  // 個性一覧をDBから取得する処理
-  const getIdentity = () => {
-    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
-    axios.get(process.env.REACT_APP_API_URL + 'v1/identity/', {
-      // ④header情報にcookieのアクセストークンを載せて通信する
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `JWT ${cookies.get('accesstoken')}`
-      }      
-    })
-    .then(response=>{
-      response.data.records.forEach((element: any) => {
-        // ループ前の配列を分解して新たにループ後の個性を一つずつ格納する
-        setIdentityList((prevState) => ([ ...prevState, element.category ]));
-      })
-    })
-    .catch(error=>{
-      window.console.error(`axios-FAILED:${error}`);
-    })
-  }
-
-  // 持ち物一覧をDBから取得する処理
-  const getItem = () => {
-    // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
-    axios.get(process.env.REACT_APP_API_URL + 'v1/item/', {
-      // ④header情報にcookieのアクセストークンを載せて通信する
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `JWT ${cookies.get('accesstoken')}`
-      }      
-    })
-    .then(response=>{
-      response.data.records.forEach((element: any) => {
-        // ループ前の配列を分解して新たにループ後の持ち物を一つずつ格納する
-        setItemList((prevState) => ([ ...prevState, element.category ]));
-      })
-    })
-    .catch(error=>{
-      window.console.error(`axios-FAILED:${error}`);
-    })
   }
 
   // テキストエリアで変更したポケモン名を保持する処理
@@ -294,9 +214,6 @@ export default function PokemonRegisterForm() {
 
   return (
     <>
-    {/* TODO: データの読み込みが終了するまでプログレスバーを描画する */}
-      {/* {progress ? <ProgressBar/> : null} */}
-    {/* success/errorメッセージがstateに設定されたらスナックバーをそれぞれの色で描画 */}
       {messageState !== "" ? <SnackBar severity={severity} message={messageState}/> : null}
     <Box
       style={{margin: "0 8px"}}
@@ -353,7 +270,7 @@ export default function PokemonRegisterForm() {
                       <MenuItem value="">
                         <em>未選択</em>
                       </MenuItem>
-                      {/* DBから取得した性格一覧をプルダウンに表示する */}
+                      {/* 定数定義ファイルから取得した性格一覧をプルダウンに表示する */}
                       {personalityList.sort().map((element: string, index: number) => (
                         <MenuItem
                           value={personality === "未選択" ? "" : element}
@@ -374,7 +291,7 @@ export default function PokemonRegisterForm() {
                       <MenuItem value="">
                         <em>未選択</em>
                       </MenuItem>
-                      {/* DBから取得した個性一覧をプルダウンに表示する */}
+                      {/* 定数定義ファイルから取得した個性一覧をプルダウンに表示する */}
                       {identityList.sort().map((element: string, index: number) => (
                         <MenuItem
                         value={identity === "未選択" ? "" : element}
@@ -396,7 +313,7 @@ export default function PokemonRegisterForm() {
                         <MenuItem value="">
                           <em>未選択</em>
                         </MenuItem>
-                      {/* DBから取得した持ち物一覧をプルダウンに表示する */}
+                      {/* 定数定義ファイルから取得した持ち物一覧をプルダウンに表示する */}
                       {itemList.sort().map((element: string, index: number) => (
                         <MenuItem
                         value={item === "未選択" ? "" : element}

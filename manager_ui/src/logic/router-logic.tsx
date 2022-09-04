@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom"
 
 export const RoutingLogic = (): {
     toLogin: () => void,
-    toLogout: () => void,
-    toSignup: () => void,
+    toSignUp: () => void,
     toMenu: () => void,
     toPartyRegister: () => void,
     toPokemonRegister: () => void,
     toBattleRecord: () => void,
     toPokemonSelectionRate: () => void,
+    toNotFound: () => void,
 } => {
     const navigate = useNavigate();
 
@@ -19,13 +19,8 @@ export const RoutingLogic = (): {
         navigate("/");
     };
 
-    // ログアウト画面
-    const toLogout = () => {
-        navigate("/logout");
-    };
-
-    // サインアップ画面
-    const toSignup = () => {
+    // ログイン画面
+    const toSignUp = () => {
         navigate("/signup");
     };
 
@@ -54,14 +49,19 @@ export const RoutingLogic = (): {
         navigate("/pokemon_selection_rate");
     }
 
+    // NotFound画面
+    const toNotFound = () => {
+        navigate("*");
+    }
+
     return {
         toLogin: toLogin,
-        toLogout: toLogout,
-        toSignup: toSignup,
+        toSignUp: toSignUp,
         toMenu: toMenu,
         toPartyRegister: toPartyRegister,
         toPokemonRegister: toPokemonRegister,
         toBattleRecord: toBattleRecord,
         toPokemonSelectionRate: toPokemonSelectionRate,
+        toNotFound: toNotFound,
     };
 };
