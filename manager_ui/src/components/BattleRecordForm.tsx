@@ -28,6 +28,8 @@ export default function BattleRecordForm() {
   const [severity, setSeverity] = React.useState<any>("");    
   // ランクを格納する変数
   const [rank, setRank] = useState<any>();
+  // パーティー名を格納する変数
+  const [partyName, setPartyName] = useState<any>();
   // 対戦結果を格納する変数
   const [result, setResult] = useState<any>();
   // 相手の1匹目のポケモン名を格納する変数
@@ -128,6 +130,8 @@ export default function BattleRecordForm() {
 
   // プルダウンを切り替えた時のパーティー取得処理
   const handleChange = (event: any) => {
+    // パーティー名の格納
+    setPartyName(event.target.value);
     // ③axios.get()のAPI取得のURLがクッキー認証が通ったもののみ取得する為、localhost:8000/v1/~
     axios.get(process.env.REACT_APP_API_URL + 'v1/party_name_pokemon/', {
       params: {
@@ -195,6 +199,7 @@ export default function BattleRecordForm() {
   // APIへ渡すデータの定義
   const data = {
     rank: rank,
+    party_name: partyName,
     my_pokemon: checkedPokemons,
     enemy_pokemon:
     [

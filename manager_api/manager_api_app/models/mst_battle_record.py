@@ -1,6 +1,8 @@
 from django.db import models
 from django_mysql.models import ListCharField
 
+from manager_api_app.models.mst_party import MstParty
+
 class MstBattleRecord(models.Model):
     """
     バトル戦績のモデル
@@ -12,6 +14,14 @@ class MstBattleRecord(models.Model):
         null=True,
         blank=True,
     )
+
+    party_name = models.CharField(
+        max_length=256,
+        verbose_name="パーティ名",
+        null=False,
+        blank=False,
+    )
+
     # 6匹の手持ちの内3匹チェックを入れたポケモンをすべて格納する配列のカラム(モデル)
     # 例）[ポッポ, ピジョン, ピジョット]
     my_pokemon = ListCharField(
@@ -68,5 +78,5 @@ class MstBattleRecord(models.Model):
     
     # 管理サイト上での表示名をobject表記から任意のカラム名に変更する
     def __str__(self):
-        return self.my_pokemon
+        return str(self.my_pokemon)
     

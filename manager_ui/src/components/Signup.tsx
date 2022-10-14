@@ -11,7 +11,7 @@ import { RoutingLogic } from '../logic/router-logic';
 import { SnackBar } from './SnackBar';
 import '../css/SignUp.css';
 
-const SignUp = () => {
+const Signup = () => {
     const router = RoutingLogic();
     // 未使用でも2つ定義する必要あり
     const [cookies, setCookie] = useCookies();
@@ -105,4 +105,4 @@ const SignUp = () => {
   );
 }
 
-export default SignUp
+export default Signup

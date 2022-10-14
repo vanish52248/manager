@@ -37,6 +37,7 @@ class BattleRecordRegisterView(APIView):
         
         battle_record_obj = MstBattleRecord.objects.create(
             rank = request.data.get('rank'),
+            party_name = request.data.get('party_name'),
             # 自分のポケモンと相手のポケモンは3匹ずつが入る配列のカラム
             my_pokemon = my_choice_pokemon_list,
             enemy_pokemon = request.data.get('enemy_pokemon'),

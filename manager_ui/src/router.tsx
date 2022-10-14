@@ -10,7 +10,7 @@ import PokemonRegister from './components/PokemonRegister';
 import BattleRecord from './components/BattleRecord';
 import PokemonSelectionRate from './components/PokemonSelectionRate';
 import Login from './components/Login';
-import SignUp from './components/SignUp';
+import Signup from './components/Signup';
 import NotFound from './components/NotFound';
 
 
@@ -63,7 +63,7 @@ const router = (
         {/* ログイン画面 */}
         <Route path={Path.Login} element={<RequireNoAuth component={<Login />} />} />
         {/* サインアップ画面 */}
-        <Route path={Path.SignUp} element={<RequireNoAuth component={<SignUp />} />} />
+        <Route path={Path.SignUp} element={<RequireNoAuth component={<Signup />} />} />
         {/* メニュー画面 */}
         <Route path={Path.Menu} element={<RequireAuth component={<Menu />} />} />
         {/* パーティー登録画面 */}

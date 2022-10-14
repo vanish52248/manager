@@ -5,6 +5,7 @@ from manager_api_app.views import (
     party_register_view, pokemon_register_view, pokemon_list_view,
     party_list_view, party_grid_pokemon_view, party_name_pokemon_view,
     battle_record_register_view, battle_result_count_view, account_register_view,
+    pokemon_selection_rate_view,
 )
 
 urlpatterns = [
@@ -26,6 +27,8 @@ urlpatterns = [
     path('battle_record_register/', battle_record_register_view.BattleRecordRegisterView.as_view(), name='battle_record_register'),
     # バトル対戦結果取得のルーティング
     path('battle_result_count/', battle_result_count_view.BattleResultCountView.as_view(), name='battle_result_count'),
+    # 自分と相手の選出したポケモン取得のルーティング
+    path('select_pokemon_list/', pokemon_selection_rate_view.PokemonSelectionRateView.as_view(), name='pokemon_selection_rate_view'),
 ]
 
 # django-debug-toolbar用ルーティング
