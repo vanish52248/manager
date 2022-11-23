@@ -267,7 +267,7 @@ export default function PokemonSelectionRateForm() {
               className='party_selection_box'
             >
               <Typography variant="body1" fontSize={"25px"} className='win_rate_text' >
-                自分パーティー
+                自分側 選出パーティー
               </Typography>
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container>
@@ -301,7 +301,7 @@ export default function PokemonSelectionRateForm() {
               className='party_selection_box'
             >
               <Typography variant="body1" fontSize={"25px"} className='win_rate_text' >
-                相手パーティー
+                相手側 選出パーティー
               </Typography>
               <Box sx={{ flexGrow: 1 }}>
                 <Grid container>
