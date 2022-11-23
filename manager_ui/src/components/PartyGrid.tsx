@@ -1,5 +1,5 @@
 // パーティーグリッドパネルのコンポーネント
-import * as React from 'react';
+import React, { useState} from 'react'
 
 import axios from 'axios';
 import { experimentalStyled as styled } from '@mui/material/styles';
@@ -23,8 +23,9 @@ import PartyGridPokemon3 from './grid/PartyGridPokemon3';
 import PartyGridPokemon4 from './grid/PartyGridPokemon4';
 import PartyGridPokemon5 from './grid/PartyGridPokemon5';
 import PartyGridPokemon6 from './grid/PartyGridPokemon6';
-import { SnackBar } from './SnackBar';
+import SnackBar from './SnackBar';
 import '../css/PartyGrid.css';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -36,11 +37,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function PartyGrid() {
 
-  //  スナックバーに表示するメッセージの変数
-  const [messageState, setMessage] = React.useState<any>("");
-  // スナックバーの色をReact.
-  const [severity, setSeverity] = React.useState<any>("");  
- 
+  // スナックバーに表示するメッセージの変数
+  const [messageState, setMessage] = useState<any>("");
+  // スナックバーの色を判定する変数
+  const [severity, setSeverity] = useState<any>("");
+  // スナックバーの開閉を判定する変数
+  const [openSnack, setOpenSnack] = React.useState<boolean>(false);
   // 登録用ダイアログの判定フラグ
   const [open, setOpen] = React.useState<boolean>(false);
   // 削除用ダイアログの判定フラグ
@@ -58,7 +60,6 @@ export default function PartyGrid() {
   const [partyName, setPartyName] = React.useState<any>();
   // ②cookieを取得するインスタンスの作成
   const cookies = new Cookies();
-
   // 登録用ダイアログを開く処理
   const AddDialogOpen = (index: number) => {
     setGridNo(index);
@@ -109,12 +110,14 @@ export default function PartyGrid() {
       }
     })
     .then(response=>{
+      setOpenSnack(true);
       setSeverity("success");
       setMessage("パーティーの登録が完了しました。");
       // パーティー登録後にグリッドを全て初期化する
       initialGrid();
     })
     .catch(error=>{
+      setOpenSnack(true);
       // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
       window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
       setSeverity("error");
@@ -124,8 +127,15 @@ export default function PartyGrid() {
 
   return (
     <div style={{margin: "0 8px"}}>
-      {/* success/errorメッセージがstateに設定されたらスナックバーをそれぞれの色で描画 */}
-      {messageState !== "" ? <SnackBar severity={severity} message={messageState}/> : null}
+    {/* スナックバーの開閉処理 */}
+    { openSnack ? 
+      <SnackBar
+        severity={severity}
+        setSeverity={setSeverity}
+        message={messageState}
+        setMessage={setMessage}
+        setOpen={setOpenSnack}
+      />: ""}
       {/* ダイアログ判定フラグがtrueの際に登録用ダイアログコンポーネントにpropsを渡して開く */}
       {open ? <PokemonAddDialog
        setOpen={setOpen}

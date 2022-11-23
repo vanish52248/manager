@@ -45,7 +45,7 @@ const Header = () => {
           <p className='user_container'>user:<span className='user_name'>{sessionStorage.getItem("username")}</span></p>
         </div>
         <div onClick={doLogout} className="logout_mark">
-          <Tooltip title={<Typography style={{ fontSize: "15px" }}>Logoutする</Typography>}>
+          <Tooltip title={<Typography style={{ fontSize: "15px" }}>ログアウトする</Typography>}>
             <img src={LogoutIcon} style={{ width: "35px", cursor: "pointer" }} />
           </Tooltip>
         </div>

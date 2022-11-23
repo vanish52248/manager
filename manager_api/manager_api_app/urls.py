@@ -1,3 +1,4 @@
+"""アプリごとのルーティング設定"""
 from django.urls import path, include
 from django.conf import settings
 import debug_toolbar

@@ -95,7 +95,7 @@ export default function PokemonAddDialog(props: any) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          <FormControl sx={{ m: 1, minWidth: 200 }}>
+          <FormControl sx={{ m: 1, minWidth: 200}}>
               {/* DBから取得した登録済みポケモン一覧を名前昇順でダイアログ内に表示する */}
               {pokemonList.sort().map((element: string, index: number) => (
                 <MenuItem

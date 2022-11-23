@@ -1,5 +1,4 @@
-// スナックバーのコンポーネント
-import React, {Fragment, useEffect,useState } from 'react';
+import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,42 +16,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SnackBar({message, severity}) {
-  const [open, setOpen] = useState(false);
+export default function SnackBar(props) {
   const classes = useStyles();
 
-  useEffect(() => {
-    if(message === ""){
-      setOpen(false);
-    } else {
-      setOpen(true);
-    }
-  },[message])
-
-  const handleClose = (reason) => {
+  // スナックバーが閉じた際に走る処理(時間経過で自動で閉じても処理される)
+  const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen(false);
+    props.setOpen(false);
   };
 
   return (
-    <Fragment>
-      {
-      message === undefined || message === null || message === "" ? null :
-      <div className={classes.root}>
-        <Snackbar
-          open={open}
-          autoHideDuration={2000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert onClose={handleClose} severity={severity}>
-            {message}
-          </Alert>
-        </Snackbar>
-        </div>
-      }
-    </Fragment>
+    <div className={classes.root}>
+      <Snackbar open={props.setOpen} autoHideDuration={2000} onClose={handleClose}>
+        {/* メッセージと色はpropsで受け取った値で動的に設定 */}
+        <Alert severity={props.severity}>
+          {props.message}
+        </Alert>
+      </Snackbar>
+    </div>
   );
 }

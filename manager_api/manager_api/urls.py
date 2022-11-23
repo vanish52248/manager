@@ -1,3 +1,4 @@
+"""プロジェクト全体のルーティング設定"""
 from django.contrib import admin
 from django.urls import path, include
 
