@@ -89,7 +89,7 @@ export default function PokemonRegisterForm() {
 
   const router = RoutingLogic()
 
-  // ポケモン選出率画面
+  // トークン認証時間切れの処理
   const toNotTokenAuthentication = () => {
     router.toNotTokenAuthentication();
   }
