@@ -1,15 +1,15 @@
 """バトル対戦結果のビュー"""
-import json
 import logging
 
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
 
 from manager_api_app.common.response_util import create_response
 from manager_api_app.models.mst_battle_record import MstBattleRecord
 
+
 class BattleResultCountView(APIView):
     """バトル対戦結果のビュー"""
+
     def get(self, request) -> list[str]:
         logger = logging.getLogger(__name__)
         logger.info("manager/item/")
@@ -31,7 +31,7 @@ class BattleResultCountView(APIView):
             result="draw",
             delete_flag=0,
         ).values()
-        
+
         # DBから取得した対戦結果の内、それぞれFEへ返却する辞書に格納していく
         for _ in battle_result_data["win"]:
             result_data["win"] = len(battle_result_data["win"])

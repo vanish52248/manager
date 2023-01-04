@@ -4,18 +4,19 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { RadioGroup, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
-import Radio from '@mui/material/Radio';
 import Grid from '@mui/material/Grid';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
+
+import { RoutingLogic } from '../logic/router-logic';
 import '../css/PokemonSelectionRateForm.css';
 
 
@@ -38,6 +39,13 @@ export default function PokemonSelectionRateForm() {
   const [enemyPokemonThirdPlace, setEnemyPokemonThirdPlace] = React.useState<any[]>([]);
   // ②cookieを取得するインスタンスの作成
   const cookies = new Cookies();
+
+  const router = RoutingLogic()
+
+  // トークン認証時間切れの処理
+  const toNotTokenAuthentication = () => {
+    router.toNotTokenAuthentication();
+  }
 
   // 初回起動時に非同期で読み込む処理
   useEffect(() => {
@@ -79,8 +87,13 @@ export default function PokemonSelectionRateForm() {
           }
         })
       })
-      .catch(error => {
-        window.console.error(`axios-FAILED:${error}`);
+      .catch(error=>{
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
+          window.console.error(`axios-FAILED:${error}`);
+        }
       })
   }
 
@@ -113,8 +126,13 @@ export default function PokemonSelectionRateForm() {
           setMyPokemonList((prevState) => ([...prevState, element.my_pokemon]));
         })
       })
-      .catch(error => {
-        window.console.error(`axios-FAILED:${error}`);
+      .catch(error=>{
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
+          window.console.error(`axios-FAILED:${error}`);
+        }
       })
   };
 
@@ -149,8 +167,13 @@ export default function PokemonSelectionRateForm() {
           setEnemyPokemonList((prevState) => ([...prevState, element.enemy_pokemon]));
         })
       })
-      .catch(error => {
-        window.console.error(`axios-FAILED:${error}`);
+      .catch(error=>{
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
+          window.console.error(`axios-FAILED:${error}`);
+        }
       })
   }
 

@@ -18,6 +18,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+import { RoutingLogic } from '../logic/router-logic';
 import SnackBar from './SnackBar';
 import '../css/BattleRecordForm.css'
 
@@ -63,6 +64,13 @@ export default function BattleRecordForm() {
   // リセットボタンを取得する変数
   const resetBtn: any = document.getElementById('clear_field_btn');
 
+  const router = RoutingLogic()
+
+  // トークン認証時間切れの処理
+  const toNotTokenAuthentication = () => {
+    router.toNotTokenAuthentication();
+  }
+
   // 初回起動時に非同期で読み込む処理
   useEffect(() => {
     (async () => {
@@ -96,7 +104,12 @@ export default function BattleRecordForm() {
         setWinRate(culc);
       })
       .catch(error => {
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
         window.console.error(`axios-FAILED:${error}`);
+        }
       })
   }
 
@@ -124,7 +137,12 @@ export default function BattleRecordForm() {
         })
       })
       .catch(error => {
-        window.console.error(`axios-FAILED:${error}`);
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
+          window.console.error(`axios-FAILED:${error}`);
+        }
       })
   }
 
@@ -169,7 +187,12 @@ export default function BattleRecordForm() {
         setPokemonList(currentPokemonList)
       })
       .catch(error => {
-        window.console.error(`axios-FAILED:${error}`);
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
+          window.console.error(`axios-FAILED:${error}`);
+        }
       })
   };
 
@@ -237,11 +260,16 @@ export default function BattleRecordForm() {
         }, 1000);
       })
       .catch(error => {
-        // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
-        setOpenSnack(true);
-        window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
-        setMessage(error.response.data.error_message);
-        setSeverity("error");
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
+          // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
+          setOpenSnack(true);
+          window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
+          setMessage(error.response.data.error_message);
+          setSeverity("error");
+        }
       })
   }
 

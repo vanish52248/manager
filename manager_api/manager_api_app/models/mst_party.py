@@ -1,6 +1,7 @@
 from django.db import models
 from manager_api_app.models.mst_pokemon import MstPokemon
 
+
 class MstParty(models.Model):
     """
     パーティのモデル

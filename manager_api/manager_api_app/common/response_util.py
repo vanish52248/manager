@@ -1,7 +1,7 @@
 """HTTPレスポンスに関するユーティリティ"""
-import logging
 from rest_framework import status
 from rest_framework.response import Response
+
 
 def create_response(response_body=None,
                     result_code=None,
@@ -17,12 +17,12 @@ def create_response(response_body=None,
         Response: API返却用レスポンス
     """
     response_data = {}
-    
+
     response_data["result_messages"] = messages
     response_data["records"] = response_body
     response_data["result_code"] = result_code
 
     # logger = logging.getLogger(__name__)
     # logger.info(f"status:{http_status} response_data:{response_data}")
-    
+
     return Response(response_data, http_status)

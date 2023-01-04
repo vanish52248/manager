@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
 from .models.mst_battle_record import MstBattleRecord
 from .models.mst_party import MstParty

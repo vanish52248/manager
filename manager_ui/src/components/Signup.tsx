@@ -37,6 +37,11 @@ const Signup = () => {
         router.toLogin();
     }
 
+    // トークン認証時間切れの処理
+    const toNotTokenAuthentication = () => {
+        router.toNotTokenAuthentication();
+    }
+
     // 登録ボタンクリック時の処理
     const getJwt = async (data: any) => {
         console.info(`リクエスト情報:${JSON.stringify(data)}`);
@@ -57,8 +62,13 @@ const Signup = () => {
                     accountRegister(data.username, data.password);
                 })
                 .catch(error => {
-                    // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
-                    window.console.error(`axios-FAILED1:${JSON.stringify(error.response.data.error_message)}`);
+                    // Token認証時間切れ時の処理→ログイン画面へ遷移
+                    if (error.response.status === 401){
+                        toNotTokenAuthentication();
+                    } else {  
+                        // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
+                        window.console.error(`axios-FAILED1:${JSON.stringify(error.response.data.error_message)}`);
+                    }
                 });
         } else {
             alert("登録をキャンセルしました。");
@@ -91,11 +101,16 @@ const Signup = () => {
                 reset();
             })
             .catch(error => {
-                // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
-                window.console.error(`axios-FAILED2:${JSON.stringify(error.response.data.error_message)}`);
-                setOpenSnack(true);
-                setSeverity("error");
-                setMessage(error.response.data.error_message);
+                // Token認証時間切れ時の処理→ログイン画面へ遷移
+                if (error.response.status === 401){
+                    toNotTokenAuthentication();
+                } else {  
+                    // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
+                    window.console.error(`axios-FAILED2:${JSON.stringify(error.response.data.error_message)}`);
+                    setOpenSnack(true);
+                    setSeverity("error");
+                    setMessage(error.response.data.error_message);
+                }
             })
     }
 
