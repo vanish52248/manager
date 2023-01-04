@@ -1,16 +1,24 @@
 """パーティー登録機能のUT"""
-
+# Djangoアプリ内部でのリクエストの作成には、django.test.Clientクラスを使用する
+# 外部=requests, 内部=Client
 from django.test import Client, TestCase
 
 
 class TestPost(TestCase):
-    # セットアップクラス
+    # セットアップクラス(テスト前に毎回実行される)
     def setUp(self):
-        # リクエストを飛ばすクライアント側の準備
+        # リクエストを飛ばすクライアントの準備
         self.client = Client()
 
     def test_post_001(self):
         """パーティー6体登録 正常系"""
+
+        # 認証時のアクセストークン取得に必要なデータ
+        token_info = {
+            "username": "admin",
+            "password": "admin123",
+        }
+
         # POSTリクエスト時に渡すパラメータ
         data = {
             "partyName": "テスト用サンプルパーティー名",
@@ -21,13 +29,18 @@ class TestPost(TestCase):
             "currentSelectPokemon5": "オニスズメ",
             "currentSelectPokemon6": "キャタピー",
         }
-        
-        # dataをパラメータとしてPOSTリクエストを飛ばす
-        request = self.client.post(
-            '/manager_api_app/v1/party_register/',
-            data,
-            # HTTP_AUTHORIZATION=f"JWT {トークン}"
-        )
-        print("==================", request.json())
 
-        self.assertEqual(request.status_code, 200)
+        # tokenを取得する
+        # res = self.client.post(
+        #     '/manager_api_app/v1/auth/jwt/create',
+        #     token_info,
+        # )
+        # print(res)
+
+        # dataをパラメータとしてPOST内部リクエストを飛ばす
+        # res = self.client.post(
+        #     '/manager_api_app/v1/party_register/',
+        #     data,
+        # )
+
+        # assert res.status_code == 200

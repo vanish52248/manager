@@ -31,7 +31,7 @@ const Login = (props: any) => {
           setCookie('accesstoken', response.data.access, { path: '/' });
           setCookie('refreshtoken', response.data.refresh, { path: '/' });
           // 認証トークンをローカルストレージに保存(FEログイン遷移判定用)
-          localStorage.setItem("login", "true");
+          sessionStorage.setItem("login", "true");
           // 現在のログインしたユーザー名をセッションストレージに保存(ヘッダー表示用)
           sessionStorage.setItem("username", data.username);
           // ログインが成功したらメニュー画面へ遷移

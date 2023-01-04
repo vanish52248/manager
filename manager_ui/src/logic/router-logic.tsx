@@ -11,6 +11,7 @@ export const RoutingLogic = (): {
     toBattleRecord: () => void,
     toPokemonSelectionRate: () => void,
     toNotFound: () => void,
+    toNotTokenAuthentication: () => void,
 } => {
     const navigate = useNavigate();
 
@@ -48,10 +49,15 @@ export const RoutingLogic = (): {
     const toPokemonSelectionRate = () => {
         navigate("/pokemon_selection_rate");
     }
+    
+    // NotFound画面
+    const toNotTokenAuthentication = () => {
+        navigate("/not_token_authentication");
+    }
 
     // NotFound画面
     const toNotFound = () => {
-        navigate("*");
+        navigate("/*");
     }
 
     return {
@@ -62,6 +68,7 @@ export const RoutingLogic = (): {
         toPokemonRegister: toPokemonRegister,
         toBattleRecord: toBattleRecord,
         toPokemonSelectionRate: toPokemonSelectionRate,
+        toNotTokenAuthentication: toNotTokenAuthentication,
         toNotFound: toNotFound,
     };
 };

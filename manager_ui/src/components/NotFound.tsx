@@ -10,7 +10,7 @@ const NotFound = () => {
       <p>お探しのページが見つかりませんでした。</p>
       {/* ログイン済み → メニュー画面へ遷移 */}
       {/* 未ログイン → ログイン画面へ遷移 */}
-      {localStorage.getItem("login") === "true" ? 
+      {sessionStorage.getItem("login") === "true" ? 
       <Link to='/menu'>メニュー画面へ</Link> :
       <Link to='/'>ログイン画面へ</Link>
     }

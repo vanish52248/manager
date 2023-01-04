@@ -12,11 +12,12 @@ import PokemonSelectionRate from './components/PokemonSelectionRate';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import NotFound from './components/NotFound';
+import NotTokenAuthentication from './components/NotTokenAuthentication';
 
 
 // 認証されていない場合、ログインページにリダイレクトする処理
 const RequireAuth = ( props: any ) => {
-    const loginStatus = localStorage.getItem("login");
+    const loginStatus = sessionStorage.getItem("login");
     // ローカルストレージにTrueがある(ログイン済みの場合)、渡されたコンポーネントをレンダリング
     if (loginStatus === "true") {
         return props.component;
@@ -27,7 +28,7 @@ const RequireAuth = ( props: any ) => {
 
 // 非認証確認メソッド
 const RequireNoAuth = ( props: any) => { 
-    const loginStatus = localStorage.getItem("login");
+    const loginStatus = sessionStorage.getItem("login");
 
     // 未ログインの場合、渡されたコンポーネントをレンダリング
     // ※ ログインページに適用
@@ -54,6 +55,8 @@ export const Path = {
     BattleRecord: '/battle_record',
     // ポケモン選出率画面
     PokemonSelectionRate: '/pokemon_selection_rate',
+    // Token認証時間切れ画面
+    NotTokenAuthentication: '/not_token_authentication',
     // NotFound画面
     NotFound: '/*',
 };
@@ -74,6 +77,8 @@ const router = (
         <Route path={Path.BattleRecord} element={<RequireAuth component={<BattleRecord />} />} />
         {/* ポケモン選出率画面 */}
         <Route path={Path.PokemonSelectionRate} element={<RequireAuth component={<PokemonSelectionRate />} />} />
+        {/* Token認証時間切れ画面 */}
+        <Route path={Path.NotTokenAuthentication} element={<RequireAuth component={<NotTokenAuthentication />} />}></Route>
         {/* NotFound画面 */}
         <Route path={Path.NotFound} element={<NotFound/>}></Route>
     </Routes>
