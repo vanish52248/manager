@@ -15,6 +15,8 @@ import { useTheme } from '@mui/material/styles';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+import { RoutingLogic } from '../logic/router-logic';
+
 export default function PokemonAddDialog(props: any) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -22,6 +24,13 @@ export default function PokemonAddDialog(props: any) {
     const [pokemonList, setPokemonList] = useState<any[]>([]);
     // ②cookieを取得するインスタンスの作成
     const cookies = new Cookies();
+
+    const router = RoutingLogic()
+
+    // トークン認証時間切れの処理
+    const toNotTokenAuthentication = () => {
+      router.toNotTokenAuthentication();
+    }  
 
     // ダイアログオープン時に毎回最初に起動させる処理
     useEffect(() => {
@@ -45,7 +54,12 @@ export default function PokemonAddDialog(props: any) {
         })
       })
       .catch(error=>{
-        window.console.error(`axios-FAILED:${error}`);
+        // Token認証時間切れ時の処理→ログイン画面へ遷移
+        if (error.response.status === 401){
+          toNotTokenAuthentication();
+        } else {
+          window.console.error(`axios-FAILED:${error}`);
+        }
       })
     }
 

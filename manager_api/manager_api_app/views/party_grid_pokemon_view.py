@@ -1,20 +1,20 @@
 """グリッド毎ポケモン情報取得のビュー"""
-import json
 import logging
 from django.db.models import Q
 
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
 
 from manager_api_app.common.response_util import create_response
 from manager_api_app.models.mst_pokemon import MstPokemon
 
+
 class PartyGridView(APIView):
     """グリッド毎ポケモン情報取得のビュー"""
+
     def get(self, request) -> list[str]:
         logger = logging.getLogger(__name__)
         logger.info("manager/party_grid/")
-        
+
         # GETのaxiosの第一引数のパラメータ(pokemon_name)をAPI側で受け取る場合->requests.GET.get()
         # print(f"request------>{request.GET}")
 
@@ -38,10 +38,10 @@ class PartyGridView(APIView):
             # POSTのaxiosの第一引数のパラメータ(pokemon_name)をAPI側で受け取る場合->requests.POST.get()
             # request.GET/requests.POSTの中でkeyErrorにならない様にget()で取得
             query, delete_flag=0,
-            ).values()
+        ).values()
 
         # print(f"result_data:{result_data}")
-                    
+
         return create_response(
             response_body=result_data,
             result_code="0",

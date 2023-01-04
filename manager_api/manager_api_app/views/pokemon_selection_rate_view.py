@@ -3,15 +3,14 @@ import json
 import logging
 
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
 
 from manager_api_app.common.response_util import create_response
 from manager_api_app.models.mst_battle_record import MstBattleRecord
-# from manager_api_app.serializers.battle_record_register_serializer import BattleRecordSerializer
 
 
 class PokemonSelectionRateView(APIView):
     """自分と相手が選出したポケモンのビュー"""
+
     def get(self, request):
         logger = logging.getLogger(__name__)
         logger.info("manager/pokemon_selection_rate/")
@@ -24,7 +23,9 @@ class PokemonSelectionRateView(APIView):
             # GUI上で自分の手持ちからチェックを入れたポケモンの内Trueのみリストに格納する
             my_choice_pokemon_list = []
             # 文字列型からdict型に型変換するときはjson.loads()で囲うとキャストされる
-            for key, value in json.loads(request.GET["select_pokemon"]).items():
+            for key, value in json.loads(
+                request.GET["select_pokemon"]
+            ).items():
                 if value:
                     my_choice_pokemon_list.append(key)
             for i in my_choice_pokemon_list:
@@ -40,7 +41,7 @@ class PokemonSelectionRateView(APIView):
             query |= MstBattleRecord.objects.filter(
                 party_name=request.GET.get("party_name"),
             ).values()
-        
+
         # 最後に返却値に最終マージする
         result_data = query
 

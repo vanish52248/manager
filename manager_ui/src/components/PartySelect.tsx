@@ -11,11 +11,20 @@ import { Select } from '@mui/material';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+import { RoutingLogic } from '../logic/router-logic';
+
 export default function PartySelect(props: any) {
   // DBから取得した登録済みパーティー名を格納する配列
   const [partyList, setPartyList] = React.useState<any[]>([]);
   // ②cookieを取得するインスタンスの作成
   const cookies = new Cookies();
+
+  const router = RoutingLogic()
+
+  // トークン認証時間切れの処理
+  const toNotTokenAuthentication = () => {
+    router.toNotTokenAuthentication();
+  }
 
   // ダイアログオープン時に毎回最初に起動させる処理
   useEffect(() => {
@@ -67,7 +76,12 @@ export default function PartySelect(props: any) {
       })
     })
     .catch(error=>{
-      window.console.error(`axios-FAILED:${error}`);
+      // Token認証時間切れ時の処理→ログイン画面へ遷移
+      if (error.response.status === 401){
+        toNotTokenAuthentication();
+      } else {
+        window.console.error(`axios-FAILED:${error}`);
+      }
     })
   };
 
@@ -95,7 +109,12 @@ export default function PartySelect(props: any) {
       })
     })
     .catch(error=>{
-      window.console.error(`axios-FAILED:${error}`);
+      // Token認証時間切れ時の処理→ログイン画面へ遷移
+      if (error.response.status === 401){
+        toNotTokenAuthentication();
+      } else {
+        window.console.error(`axios-FAILED:${error}`);
+      }
     })
   }
   

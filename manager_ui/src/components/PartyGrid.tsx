@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+import { RoutingLogic } from '../logic/router-logic';
 import PartySelect from './PartySelect';
 import PokemonAddDialog from './PokemonAddDialog';
 import PokemonDeleteDialog from './PokemonDeleteDialog';
@@ -60,6 +61,14 @@ export default function PartyGrid() {
   const [partyName, setPartyName] = React.useState<any>();
   // ②cookieを取得するインスタンスの作成
   const cookies = new Cookies();
+
+  const router = RoutingLogic()
+
+  // トークン認証時間切れの処理
+  const toNotTokenAuthentication = () => {
+    router.toNotTokenAuthentication();
+  }
+
   // 登録用ダイアログを開く処理
   const AddDialogOpen = (index: number) => {
     setGridNo(index);
@@ -117,11 +126,16 @@ export default function PartyGrid() {
       initialGrid();
     })
     .catch(error=>{
-      setOpenSnack(true);
-      // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
-      window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
-      setSeverity("error");
-      setMessage(error.response.data.error_message);
+      // Token認証時間切れ時の処理→ログイン画面へ遷移
+      if (error.response.status === 401){
+        toNotTokenAuthentication();
+      } else {
+        setOpenSnack(true);
+        // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
+        window.console.error(`axios-FAILED:${JSON.stringify(error.response.data.error_message)}`);
+        setSeverity("error");
+        setMessage(error.response.data.error_message);
+      }
     })
   }
 

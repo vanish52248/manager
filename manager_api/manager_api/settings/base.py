@@ -72,7 +72,7 @@ MIDDLEWARE = [
 INTERNAL_IPS = ['127.0.0.1']
 
 DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
+    "SHOW_TOOLBAR_CALLBACK": lambda request: True,
 }
 
 ROOT_URLCONF = 'manager_api.urls'
@@ -101,18 +101,18 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #Simple JWTを読み込む
+        # Simple JWTを読み込む
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
 }
 
 SIMPLE_JWT = {
-    #トークンの時間を5分に設定
+    # トークンの時間を5分に設定
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': False,
-    #暗号のアルゴリズム設定
+    # 暗号のアルゴリズム設定
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,
     'VERIFYING_KEY': None,
@@ -166,7 +166,7 @@ LOGGING = {
         'console': {
             'level': 'INFO',
             # こちらは標準出力に出してくれるクラスを指定
-            'class': 'logging.StreamHandler', 
+            'class': 'logging.StreamHandler',
             'formatter': 'production'
         },
     },

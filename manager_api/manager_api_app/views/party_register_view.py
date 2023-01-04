@@ -5,7 +5,9 @@ from rest_framework.views import APIView
 
 from manager_api_app.common.response_util import create_response
 from manager_api_app.models.mst_party import MstParty
-from manager_api_app.serializers.party_register_serializer import PartySerializer
+from manager_api_app.serializers.party_register_serializer import (
+    PartySerializer
+)
 
 
 class PartyRegisterView(APIView):
