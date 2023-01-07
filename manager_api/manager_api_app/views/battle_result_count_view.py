@@ -10,7 +10,7 @@ from manager_api_app.models.mst_battle_record import MstBattleRecord
 class BattleResultCountView(APIView):
     """バトル対戦結果のビュー"""
 
-    def get(self, request) -> list[str]:
+    def get(self, request):
         logger = logging.getLogger(__name__)
         logger.info("manager/item/")
 

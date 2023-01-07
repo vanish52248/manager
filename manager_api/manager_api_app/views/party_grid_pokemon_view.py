@@ -11,7 +11,7 @@ from manager_api_app.models.mst_pokemon import MstPokemon
 class PartyGridView(APIView):
     """グリッド毎ポケモン情報取得のビュー"""
 
-    def get(self, request) -> list[str]:
+    def get(self, request):
         logger = logging.getLogger(__name__)
         logger.info("manager/party_grid/")
 

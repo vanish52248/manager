@@ -10,7 +10,7 @@ from manager_api_app.models.mst_party import MstParty
 class PartyNamePokemonView(APIView):
     """登録パーティー名でポケモン6匹を取得するビュー"""
 
-    def get(self, request) -> list[str]:
+    def get(self, request):
         logger = logging.getLogger(__name__)
         logger.info("manager/party_name_pokemon/")
 

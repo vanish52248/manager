@@ -10,7 +10,7 @@ from manager_api_app.models.mst_pokemon import MstPokemon
 class PokemonListView(APIView):
     """登録ポケモンを一覧取得するビュー"""
 
-    def get(self, request) -> list[str]:
+    def get(self, request):
         logger = logging.getLogger(__name__)
         logger.info("manager/pokemon_list/")
 
