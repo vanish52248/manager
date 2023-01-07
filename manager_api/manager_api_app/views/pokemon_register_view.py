@@ -13,7 +13,7 @@ from manager_api_app.serializers.pokemon_register_serializer import (
 class PokemonRegisterView(APIView):
     """ポケモン登録のビュー"""
 
-    def post(self, request) -> list[str]:
+    def post(self, request):
 
         logger = logging.getLogger(__name__)
         logger.info("manager/pokemon_register/")
