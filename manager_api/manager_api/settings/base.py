@@ -31,9 +31,6 @@ INSTALLED_APPS = [
     # --------------------- ---------------------------------------------------
     'rest_framework',
     'corsheaders',
-    # デバッグ用は下記の内どちらか(両立不可)
-    # 'debug_toolbar',
-    'silk',
     # JWT認証関係の追加
     'rest_framework.authtoken',
     'djoser',
@@ -46,9 +43,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE = True
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,13 +57,7 @@ MIDDLEWARE = [
     # ------------------------------------------------------------------------
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # デバッグ用は下記の内どちらか(両立不可)
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'silk.middleware.SilkyMiddleware',
 ]
-
-# django-debug-toolbar 使えるIPアドレス
-INTERNAL_IPS = ['127.0.0.1']
 
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": lambda request: True,
@@ -121,25 +109,6 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'user_id',
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
-}
-
-DATABASES = {
-    'default': {
-        # sqlite → MariaDBへ変更
-        'ENGINE': 'django.db.backends.mysql',
-        # 作成したMariaDBのDB名
-        'NAME': 'manager',
-        # MariaDBのDBにアクセスするユーザー名とパスワード
-        'USER': 'root',
-        'PASSWORD': 'hosiimiki2',
-        # default設定のまま設定
-        'HOST': 'localhost',
-        # MariaDBの使用するポートはMySQLと同じ3306になる
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        }
-    }
 }
 
 LOGGING = {

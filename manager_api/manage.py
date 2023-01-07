@@ -7,7 +7,9 @@ import sys
 def main():
     """Run administrative tasks."""
     # ディレクトリを分けたので階層を一つ深くする
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'manager_api.settings.base')
+    # runserverの際に --settings を指定しない場合はローカル環境として起動される
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'manager_api.settings.base')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'manager_api.settings.local')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
