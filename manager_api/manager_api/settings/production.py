@@ -36,5 +36,9 @@ DATABASES = {
     }
 }
 
+CORS_ORIGIN_WHITELIST = [
+    'http://35.73.114.231/:3000',
+]
+
 STATIC_ROOT = '/usr/share/nginx/html/static'
 MEDIA_ROOT = '/usr/share/nginx/html/media'
