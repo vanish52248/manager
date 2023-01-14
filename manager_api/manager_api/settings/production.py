@@ -37,7 +37,7 @@ DATABASES = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'http://35.73.114.231',
+    'http://18.176.68.186',
     'http://127.0.0.1:3000',
 ]
 
