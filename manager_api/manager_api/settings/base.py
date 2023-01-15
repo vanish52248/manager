@@ -1,12 +1,19 @@
 """全体設定の共通モジュール"""
 
 from pathlib import Path
+import environ
 import os
 from datetime import timedelta
 
 # ディレクトリを分けたのでparent階層を一つ深くする(2個から3個)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+SECRET_KEY = env('SECRET_KEY')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True
@@ -187,7 +194,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build/static')
+    os.path.join(BASE_DIR, '../manager_ui/build/static')
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
