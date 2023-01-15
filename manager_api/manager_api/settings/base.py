@@ -7,7 +7,7 @@ from datetime import timedelta
 # ディレクトリを分けたのでparent階層を一つ深くする(2個から3個)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = '8)xkcq)y4q=f2rg2%2!%8in7=ed*g6(p-5tc@jmv=p_ll!(@kb'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True
 
@@ -68,7 +68,7 @@ ROOT_URLCONF = 'manager_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -185,3 +185,9 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build/static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
