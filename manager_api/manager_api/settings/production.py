@@ -39,7 +39,7 @@ DATABASES = {
 CORS_ORIGIN_WHITELIST = [
     'http://18.176.68.186',
     "http://localhost",
-    "http://127.0.0.1",  
+    "http://127.0.0.1",
 ]
 
 STATIC_ROOT = '/usr/share/nginx/html/static'
