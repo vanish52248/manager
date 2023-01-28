@@ -46,7 +46,7 @@ const Signup = () => {
     const getJwt = async (data: any) => {
         console.info(`リクエスト情報:${JSON.stringify(data)}`);
         if (window.confirm("入力した情報でアカウントを新規登録しますか。")) {
-            console.log(`test=============================> ${process.env.REACT_APP_API_URL}`);
+            console.log(`アカウント新規登録時のURL: ${process.env.REACT_APP_API_URL}`);
             await axios.post(process.env.REACT_APP_API_URL + 'v1/auth/jwt/create/',
                 {
                     // アカウント作成時のクッキーの作成は管理者のadminで行うようにする(401対策)
