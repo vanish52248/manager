@@ -3,6 +3,8 @@
 ex) pipenv run start --setting manager_api.settings.production
 """
 
+print("load production settings.py")
+
 import os
 from .base import *
 
@@ -35,6 +37,13 @@ DATABASES = {
         },
     }
 }
+
+# ------------------------------------------------------------------------
+# reactとDRF繋げるために下記追加
+# ------------------------------------------------------------------------
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
 
 CORS_ORIGIN_WHITELIST = [
     'http://18.176.68.186',
