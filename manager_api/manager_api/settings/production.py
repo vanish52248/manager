@@ -53,3 +53,5 @@ CORS_ORIGIN_WHITELIST = [
 
 STATIC_ROOT = '/usr/share/nginx/html/static'
 MEDIA_ROOT = '/usr/share/nginx/html/media'
+
+CSRF_TRUSTED_ORIGINS = ['http://18.176.68.186']
