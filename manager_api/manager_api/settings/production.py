@@ -54,7 +54,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1",
 ]
 
-STATIC_ROOT = '/usr/share/nginx/html/static'
+STATIC_ROOT = os.path.join(BASE_DIR, "app/static")
 MEDIA_ROOT = '/usr/share/nginx/html/media'
 
 CSRF_TRUSTED_ORIGINS = ['http://18.176.68.186']
