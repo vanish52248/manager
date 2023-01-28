@@ -10,7 +10,10 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOSTS'),
+    os.environ.get('ALLOWED_HOSTS2'),
+]
 
 INSTALLED_APPS += [
     # デバッグ用は下記の内どちらか(両立不可)
