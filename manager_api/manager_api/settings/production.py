@@ -54,7 +54,8 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1",
 ]
 
+# Django管理サイトにCSSを利かす為に必須で設定必要
 STATIC_ROOT = os.path.join(BASE_DIR, "app/static")
 MEDIA_ROOT = '/usr/share/nginx/html/media'
 
-CSRF_TRUSTED_ORIGINS = ['http://18.176.68.186']
+CSRF_TRUSTED_ORIGINS = ['http//18.176.68.186', 'https//18.176.68.186']
