@@ -36,7 +36,7 @@ DATABASES = {
         'HOST': os.environ.get('DB_HOST'),
         'PORT': os.environ.get('DB_PORT'),
         'OPTIONS': {
-            'charset': 'utf8mb4',
+            'charset': 'utf8_general_ci',
         },
     }
 }
