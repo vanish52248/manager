@@ -1,20 +1,10 @@
-/* .button_container {
+.button_container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     padding-top: 10px;
-} */
+}
 
 .button + .button {
     margin-top: 10px;
-}
-
-.how_to_use_box {
-    border: 0.5px solid #e2e2e2;
-    border-radius: 3px;
-    height: 120px;
-    overflow-y: scroll;
-}
-.how_to_use_text {
-    font-size: 13.5px;
-    padding: 8px;
-    margin: 0px;
-    word-wrap: break-word;
 }

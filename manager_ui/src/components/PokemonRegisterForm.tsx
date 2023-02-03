@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+import ComponentTitle from './ComponentTitle'
 import { RoutingLogic } from '../logic/router-logic';
 // 定数ファイルからのアイテム・性格・個性のインポート
 import { identityList, itemList, personalityList } from '../const_';
@@ -93,7 +94,7 @@ export default function PokemonRegisterForm() {
   const toNotTokenAuthentication = () => {
     router.toNotTokenAuthentication();
   }
-  
+
 
   // 登録ボタンクリック時にAPIへ入力データを渡す処理
   const pokemonClickRegister = () => {
@@ -116,7 +117,7 @@ export default function PokemonRegisterForm() {
       })
       .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
           // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
@@ -233,23 +234,13 @@ export default function PokemonRegisterForm() {
         /> : ""}
       {/* 入力フォームをリセットするための大枠を<form>で囲む */}
       <form id="input_all_form_container">
-        <Box
-          style={{ margin: "0 8px" }}
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            '& > :not(style)': {
-              m: 1,
-              width: 2000,
-              height: 750,
-            },
-          }}
-        >
+        <Box>
           <Paper className='form_wrapper' elevation={3}>
             <div>
               <div>
                 <div>
                   <div className='name_container'>
+                    <ComponentTitle title="ポケモン登録" />
                     <TextField
                       className='pokemon_name field_clear_classes'
                       id="outlined-basic"

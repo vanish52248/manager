@@ -33,14 +33,8 @@ export default function MenuButtons() {
   return (
     <>
       <Box
-        className='button_container'
-        sx={{
-          '& > *': {
-            m: 4,
-          },
-        }}
-        >
-        <Paper elevation={3}>
+        className='button_container'>
+        <Paper elevation={3} style={{marginBottom: "7%"}}>
           <Button
             className='button'
             style={{width: "100%"}}
@@ -50,7 +44,7 @@ export default function MenuButtons() {
             ポケモン登録
           </Button>
         </Paper>
-        <Paper elevation={3}>
+        <Paper elevation={3} style={{marginBottom: "7%"}}>
           <Button
             className='button'
             style={{width: "100%"}}
@@ -60,7 +54,7 @@ export default function MenuButtons() {
             パーティー登録
           </Button>
         </Paper>
-        <Paper elevation={3}>
+        <Paper elevation={3} style={{marginBottom: "7%"}}>
           <Button
             className='button'
             style={{width: "100%"}}
@@ -70,7 +64,7 @@ export default function MenuButtons() {
             バトル戦績
           </Button>
         </Paper>
-        <Paper elevation={3}>
+        <Paper elevation={3} style={{marginBottom: "7%"}}>
           <Button
             className='button'
            style={{width: "100%"}}
@@ -80,16 +74,6 @@ export default function MenuButtons() {
             ポケモン選出率
           </Button>
         </Paper>
-        <Box sx={{ flexGrow: 2 }} className="how_to_use_box">
-          {/* <h2 className='how_to_use_title'>使い方</h2> */}
-          <p className='how_to_use_text'>
-          下記手順でポケモン・パーティー登録から選出率の確認まで行ってください。<br />
-          1. ポケモン登録<br />
-          2. パーティー登録<br />
-          3. バトル戦績登録<br />
-          4. ポケモン選出率確認<br />
-          </p>
-        </Box>
         </Box>
     </>
   );

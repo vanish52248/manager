@@ -16,7 +16,7 @@ export default function Menu() {
       <Header />
       <Grid container alignItems="center" justifyContent="center" className='grid_wrapper'>
         <Grid item  xs={4} className='menu_grid_item'>
-          <Paper sx={{ height: 500, width: 700, padding: "10px" }}>
+          <Paper className='menu_paper'>
             <ComponentTitle title="メニュー画面" />
             <MenuButtons />
           </Paper >

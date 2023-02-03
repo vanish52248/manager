@@ -16,6 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+import ComponentTitle from './ComponentTitle'
 import { RoutingLogic } from '../logic/router-logic';
 import '../css/PokemonSelectionRateForm.css';
 
@@ -87,9 +88,9 @@ export default function PokemonSelectionRateForm() {
           }
         })
       })
-      .catch(error=>{
+      .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
           window.console.error(`axios-FAILED:${error}`);
@@ -126,9 +127,9 @@ export default function PokemonSelectionRateForm() {
           setMyPokemonList((prevState) => ([...prevState, element.my_pokemon]));
         })
       })
-      .catch(error=>{
+      .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
           window.console.error(`axios-FAILED:${error}`);
@@ -167,9 +168,9 @@ export default function PokemonSelectionRateForm() {
           setEnemyPokemonList((prevState) => ([...prevState, element.enemy_pokemon]));
         })
       })
-      .catch(error=>{
+      .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
           window.console.error(`axios-FAILED:${error}`);
@@ -207,15 +208,15 @@ export default function PokemonSelectionRateForm() {
     // チェック/非チェック時に、まず選出ポケモンランキングを初期化してから処理開始
     setEnemyPokemonFirstPlace([]);
     setEnemyPokemonSecondPlace([]);
-    setEnemyPokemonThirdPlace([]);    
+    setEnemyPokemonThirdPlace([]);
     for (let i of Object.values(countDict)) {
       // 1位の設定
       if (max_ < Number(i)) {
         max_ = Number(i);
-      // 2位の設定
+        // 2位の設定
       } else if (second < Number(i)) {
         second = Number(i);
-      // 3位の設定
+        // 3位の設定
       } else if (third < Number(i)) {
         third = Number(i);
       }
@@ -229,11 +230,11 @@ export default function PokemonSelectionRateForm() {
       if (Number(value) === max_) {
         firstList.push(key + ",");
         setEnemyPokemonFirstPlace(firstList);
-      // 2番目に多い数と一致しているので2位に設定
+        // 2番目に多い数と一致しているので2位に設定
       } else if (Number(value) < max_ && Number(value) === second) {
         secondList.push(key + ",");
         setEnemyPokemonSecondPlace(secondList);
-      // 3番目に多い数と一致しているので3位に設定
+        // 3番目に多い数と一致しているので3位に設定
       } else if (Number(value) < second && Number(value) === third) {
         thirdList.push(key + ",");
         setEnemyPokemonThirdPlace(thirdList);
@@ -243,19 +244,9 @@ export default function PokemonSelectionRateForm() {
 
   return (
     <>
-      <Box
-        style={{ margin: "0 8px" }}
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          '& > :not(style)': {
-            m: 1,
-            width: 2000,
-            height: 750,
-          },
-        }}
-      >
-        <Paper className='form_wrapper' elevation={3}>
+      <Box>
+        <Paper className='selection_rate_form_wrapper' elevation={3}>
+          <ComponentTitle title="ポケモン選出率" />
           <FormControl sx={{ m: 1, minWidth: 500 }} >
             <InputLabel id="demo-simple-select-autowidth-label">パーティー選択</InputLabel>
             <Select
@@ -321,7 +312,7 @@ export default function PokemonSelectionRateForm() {
                 height: 450,
                 backgroundColor: '#fff',
               }}
-              className='party_selection_box'
+              className='enemy_box_wrapper'
             >
               <Typography variant="body1" fontSize={"25px"} className='win_rate_text' >
                 相手側 選出パーティー
@@ -341,9 +332,9 @@ export default function PokemonSelectionRateForm() {
           </div>
           <div className="select_enemy_ranking_wrapper">
             <h3>相手側 選出ポケモンランキング</h3>
-            <p>🥇 1位：{enemyPokemonFirstPlace}</p>
-            <p>🥈 2位：{enemyPokemonSecondPlace}</p>
-            <p>🥉 3位：{enemyPokemonThirdPlace}</p>
+            <p>&#129351; 1位：{enemyPokemonFirstPlace}</p>
+            <p>&#129352; 2位：{enemyPokemonSecondPlace}</p>
+            <p>&#129353; 3位：{enemyPokemonThirdPlace}</p>
           </div>
         </Paper>
       </Box>

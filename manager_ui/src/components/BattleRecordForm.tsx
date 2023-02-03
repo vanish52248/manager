@@ -18,6 +18,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
 
+import ComponentTitle from './ComponentTitle'
 import { RoutingLogic } from '../logic/router-logic';
 import SnackBar from './SnackBar';
 import '../css/BattleRecordForm.css'
@@ -105,10 +106,10 @@ export default function BattleRecordForm() {
       })
       .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
-        window.console.error(`axios-FAILED:${error}`);
+          window.console.error(`axios-FAILED:${error}`);
         }
       })
   }
@@ -138,7 +139,7 @@ export default function BattleRecordForm() {
       })
       .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
           window.console.error(`axios-FAILED:${error}`);
@@ -188,7 +189,7 @@ export default function BattleRecordForm() {
       })
       .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
           window.console.error(`axios-FAILED:${error}`);
@@ -261,7 +262,7 @@ export default function BattleRecordForm() {
       })
       .catch(error => {
         // Token認証時間切れ時の処理→ログイン画面へ遷移
-        if (error.response.status === 401){
+        if (error.response.status === 401) {
           toNotTokenAuthentication();
         } else {
           // error.response.dataの中にAPIからraiseしてきたJSONの値が格納されている
@@ -293,19 +294,9 @@ export default function BattleRecordForm() {
         /> : ""}
       {/* 入力フォームをリセットするための大枠を<form>で囲む */}
       <form id="input_all_form_container">
-        <Box
-          style={{ margin: "0 8px" }}
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            '& > :not(style)': {
-              m: 1,
-              width: 2000,
-              height: 750,
-            },
-          }}
-        >
-          <Paper className='form_wrapper' elevation={3}>
+        <Box>
+          <Paper className='battle_record_form_wrapper' elevation={3}>
+            <ComponentTitle title="バトル戦績" />
             <div>
               <div className='rank_container'>
                 <FormControl sx={{ m: 1, minWidth: 250 }}>
