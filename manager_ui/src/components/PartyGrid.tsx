@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import { Tooltip, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 // ①ユニバーサルクッキーをインポート
@@ -175,6 +176,13 @@ export default function PartyGrid() {
             setCurrentSelectPokemon4={setCurrentSelectPokemon4}
             setCurrentSelectPokemon5={setCurrentSelectPokemon5}
             setCurrentSelectPokemon6={setCurrentSelectPokemon6}
+            // 現在選択しているポケモン名
+            currentPokemon1={currentSelectPokemon1}
+            currentPokemon2={currentSelectPokemon2}
+            currentPokemon3={currentSelectPokemon3}
+            currentPokemon4={currentSelectPokemon4}
+            currentPokemon5={currentSelectPokemon5}
+            currentPokemon6={currentSelectPokemon6}
             // どのグリッドが選択されたかのインデックス
             gridNo={gridNo}
           /> : ""}
@@ -186,11 +194,11 @@ export default function PartyGrid() {
             setCurrentSelectPokemon5={setCurrentSelectPokemon5}
             setCurrentSelectPokemon6={setCurrentSelectPokemon6}
           />
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 4, md: 12 }}>
+          <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 2, sm: 3, md: 12 }}>
             {Array.from(Array(6)).map((_, index) => (
-              <Grid item xs={3} sm={2} md={4} key={index}>
+              <Grid item xs={3} sm={3} md={4} key={index}>
                 {/* DBからのポケモンを表示する */}
-                <Item sx={{ height: 250 }} className='party_grid_item'>
+                <Item sx={{ height: 220 }} className='party_grid_item'>
                   {/* グリッドごとに選択したポケモンを表示する */}
                   {currentSelectPokemon1 && index === 0 ? <PartyGridPokemon1 index={index} currentSelectPokemon1={currentSelectPokemon1} /> : ""}
                   {currentSelectPokemon2 && index === 1 ? <PartyGridPokemon2 index={index} currentSelectPokemon2={currentSelectPokemon2} /> : ""}
@@ -198,7 +206,8 @@ export default function PartyGrid() {
                   {currentSelectPokemon4 && index === 3 ? <PartyGridPokemon4 index={index} currentSelectPokemon4={currentSelectPokemon4} /> : ""}
                   {currentSelectPokemon5 && index === 4 ? <PartyGridPokemon5 index={index} currentSelectPokemon5={currentSelectPokemon5} /> : ""}
                   {currentSelectPokemon6 && index === 5 ? <PartyGridPokemon6 index={index} currentSelectPokemon6={currentSelectPokemon6} /> : ""}
-                  <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを追加</Typography>}>
+                  {/* 追加・編集アイコン関連 */}
+                    <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを追加・変更</Typography>}>
                     <AddIcon
                       fontSize='large'
                       className='add_icon'
@@ -206,14 +215,73 @@ export default function PartyGrid() {
                       key={index}
                     />
                   </Tooltip>
-                  <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを削除</Typography>}>
-                    <DeleteOutlineIcon
-                      fontSize='large'
-                      className='delete_icon'
-                      onClick={() => DeleteDialogOpen(index)}
-                      key={index}
-                    />
-                  </Tooltip>
+                  {/* 削除アイコン関連 */}
+                  {
+                    currentSelectPokemon1 && index === 0 &&
+                    <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを削除</Typography>}>
+                      <DeleteOutlineIcon
+                        fontSize='large'
+                        className='delete_icon'
+                        onClick={() => DeleteDialogOpen(index)}
+                        key={index}
+                        />
+                    </Tooltip>
+                  }
+                  {
+                    currentSelectPokemon2 && index === 1 &&
+                    <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを削除</Typography>}>
+                      <DeleteOutlineIcon
+                        fontSize='large'
+                        className='delete_icon'
+                        onClick={() => DeleteDialogOpen(index)}
+                        key={index}
+                        />
+                    </Tooltip>
+                  }
+                  {
+                    currentSelectPokemon3 && index === 2 &&
+                    <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを削除</Typography>}>
+                      <DeleteOutlineIcon
+                        fontSize='large'
+                        className='delete_icon'
+                        onClick={() => DeleteDialogOpen(index)}
+                        key={index}
+                        />
+                    </Tooltip>
+                  }
+                  {
+                    currentSelectPokemon4 && index === 3 &&
+                    <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを削除</Typography>}>
+                      <DeleteOutlineIcon
+                        fontSize='large'
+                        className='delete_icon'
+                        onClick={() => DeleteDialogOpen(index)}
+                        key={index}
+                        />
+                    </Tooltip>
+                  }
+                  {
+                    currentSelectPokemon5 && index === 4 &&
+                    <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを削除</Typography>}>
+                      <DeleteOutlineIcon
+                        fontSize='large'
+                        className='delete_icon'
+                        onClick={() => DeleteDialogOpen(index)}
+                        key={index}
+                        />
+                    </Tooltip>
+                  }
+                  {
+                    currentSelectPokemon6 && index === 5 &&
+                    <Tooltip title={<Typography style={{ fontSize: "15px" }}>ポケモンを削除</Typography>}>
+                      <DeleteOutlineIcon
+                        fontSize='large'
+                        className='delete_icon'
+                        onClick={() => DeleteDialogOpen(index)}
+                        key={index}
+                        />
+                    </Tooltip>
+                  }
                 </Item>
               </Grid>
             ))}

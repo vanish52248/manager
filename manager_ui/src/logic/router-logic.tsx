@@ -10,6 +10,10 @@ export const RoutingLogic = (): {
     toPokemonRegister: () => void,
     toBattleRecord: () => void,
     toPokemonSelectionRate: () => void,
+    toEditor: () => void,
+    toPokemonEditor: () => void,
+    toPartyEditor: () => void,
+    toBattleRecordEditor: () => void,
     toNotFound: () => void,
     toNotTokenAuthentication: () => void,
 } => {
@@ -49,6 +53,26 @@ export const RoutingLogic = (): {
     const toPokemonSelectionRate = () => {
         navigate("/pokemon_selection_rate");
     }
+
+    // 登録済みフィールド編集画面
+    const toEditor = () => {
+        navigate("/editor");
+    }
+
+    // 登録済みポケモン管理画面
+    const toPokemonEditor = () => {
+        navigate("/pokemon_editor");
+    }
+    
+    // 登録済みパーティー管理画面
+    const toPartyEditor = () => {
+        navigate("/party_editor");
+    }
+    
+    // 登録済みランクバトル戦績管理画面
+    const toBattleRecordEditor = () => {
+        navigate("/battle_record_editor");
+    }
     
     // NotFound画面
     const toNotTokenAuthentication = () => {
@@ -68,6 +92,10 @@ export const RoutingLogic = (): {
         toPokemonRegister: toPokemonRegister,
         toBattleRecord: toBattleRecord,
         toPokemonSelectionRate: toPokemonSelectionRate,
+        toEditor: toEditor,
+        toPokemonEditor: toPokemonEditor,
+        toPartyEditor: toPartyEditor,
+        toBattleRecordEditor: toBattleRecordEditor,
         toNotTokenAuthentication: toNotTokenAuthentication,
         toNotFound: toNotFound,
     };

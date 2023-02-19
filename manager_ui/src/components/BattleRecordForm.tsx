@@ -354,7 +354,7 @@ export default function BattleRecordForm() {
                   className='party_box'
                 >
                   <Typography variant="body1" fontSize={"25px"} className='win_rate_text' >
-                    自分パーティー
+                    自分側 選出パーティー
                   </Typography>
                   <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={{ xs: 0, md: 0 }} columns={{ xs: 0, sm: 4, md: 12 }}>
@@ -388,7 +388,7 @@ export default function BattleRecordForm() {
                   className='party_box'
                 >
                   <Typography variant="body1" fontSize={"25px"} className='win_rate_text' >
-                    相手パーティー
+                    相手側 選出パーティー
                   </Typography>
                   <div className='enemy_pokemon_wrapper'>
                     <div className='enemy_pokemon_box'>

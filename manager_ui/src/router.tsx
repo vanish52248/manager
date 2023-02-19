@@ -9,6 +9,10 @@ import PartyRegister from './components/PartyRegister';
 import PokemonRegister from './components/PokemonRegister';
 import BattleRecord from './components/BattleRecord';
 import PokemonSelectionRate from './components/PokemonSelectionRate';
+import Editor from './components/Editor';
+import PokemonEditor from './components/PokemonEditor';
+import PartyEditor from './components/PartyEditor';
+import BattleRecordEditor from './components/BattleRecordEditor';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import NotFound from './components/NotFound';
@@ -55,6 +59,14 @@ export const Path = {
     BattleRecord: '/battle_record',
     // ポケモン選出率画面
     PokemonSelectionRate: '/pokemon_selection_rate',
+    // 登録済みフィールド編集画面
+    Editor: '/editor',
+    // 登録済みポケモン管理画面
+    PokemonEditor: '/pokemon_editor',
+    // 登録済みパーティー管理画面
+    PartyEditor: '/party_editor',
+    // 登録済みパーティー管理画面
+    BattleRecordEditor: '/battle_record_editor',
     // Token認証時間切れ画面
     NotTokenAuthentication: '/not_token_authentication',
     // NotFound画面
@@ -77,6 +89,14 @@ const router = (
         <Route path={Path.BattleRecord} element={<RequireAuth component={<BattleRecord />} />} />
         {/* ポケモン選出率画面 */}
         <Route path={Path.PokemonSelectionRate} element={<RequireAuth component={<PokemonSelectionRate />} />} />
+        {/* 登録済みフィールド編集画面 */}
+        <Route path={Path.Editor} element={<RequireAuth component={<Editor />} />} />
+        {/* 登録済みポケモン管理画面 */}
+        <Route path={Path.PokemonEditor} element={<RequireAuth component={<PokemonEditor />} />} />
+        {/* 登録済みパーティー管理画面 */}
+        <Route path={Path.PartyEditor} element={<RequireAuth component={<PartyEditor />} />} />
+        {/* 登録済みランクバトル戦績管理画面 */}
+        <Route path={Path.BattleRecordEditor} element={<RequireAuth component={<BattleRecordEditor />} />} />
         {/* Token認証時間切れ画面 */}
         <Route path={Path.NotTokenAuthentication} element={<RequireAuth component={<NotTokenAuthentication />} />}></Route>
         {/* NotFound画面 */}

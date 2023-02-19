@@ -44,9 +44,7 @@ const Signup = () => {
 
     // 登録ボタンクリック時の処理
     const getJwt = async (data: any) => {
-        console.info(`リクエスト情報:${JSON.stringify(data)}`);
         if (window.confirm("入力した情報でアカウントを新規登録しますか。")) {
-            console.log(`アカウント新規登録時のURL: ${process.env.REACT_APP_API_URL}`);
             await axios.post(process.env.REACT_APP_API_URL + 'v1/auth/jwt/create/',
                 {
                     // アカウント作成時のクッキーの作成は管理者のadminで行うようにする(401対策)
@@ -55,7 +53,6 @@ const Signup = () => {
                 },
             )
                 .then(response => {
-                    console.info(`レスポンス情報1:${JSON.stringify(response.data)}`);
                     // 開発者ツールのcookiesに"accesstoken"と"refreshtoken"の値がセットされる(無いとBE API取得時に401になる)
                     setCookie('accesstoken', response.data.access, { path: '/' });
                     setCookie('refreshtoken', response.data.refresh, { path: '/' });
@@ -94,7 +91,6 @@ const Signup = () => {
             }
         })
             .then(response => {
-                console.info(`レスポンス情報2:${JSON.stringify(response.data)}`);
                 setOpenSnack(true);
                 setSeverity("success");
                 setMessage("アカウントの新規登録が完了しました。");

@@ -15,7 +15,6 @@ export default function PokemonDeleteDialog(props: any) {
 
     // ダイアログ内の削除ボタンがクリックされた際の処理
     const handleDelete = () => {
-      window.console.info("パーティーからのポケモン削除完了");
       if (props.gridNo === 0) {
         props.setCurrentSelectPokemon1(null);
       } else if (props.gridNo === 1) {
@@ -51,7 +50,12 @@ export default function PokemonDeleteDialog(props: any) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {`パーティー登録中のこのポケモンを削除しますか？`}
+            {props.gridNo === 0 && `パーティー登録中の ${props.currentPokemon1} を削除しますか？`}
+            {props.gridNo === 1 && `パーティー登録中の ${props.currentPokemon2} を削除しますか？`}
+            {props.gridNo === 2 && `パーティー登録中の ${props.currentPokemon3} を削除しますか？`}
+            {props.gridNo === 3 && `パーティー登録中の ${props.currentPokemon4} を削除しますか？`}
+            {props.gridNo === 4 && `パーティー登録中の ${props.currentPokemon5} を削除しますか？`}
+            {props.gridNo === 5 && `パーティー登録中の ${props.currentPokemon6} を削除しますか？`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

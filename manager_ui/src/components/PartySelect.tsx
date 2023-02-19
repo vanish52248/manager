@@ -8,10 +8,14 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { Select } from '@mui/material';
+import { Tooltip, Typography } from '@mui/material';
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
+import CachedIcon from '@mui/icons-material/Cached';
 
 import { RoutingLogic } from '../logic/router-logic';
+import '../css/PartySelect.css';
+
 
 export default function PartySelect(props: any) {
   // DBから取得した登録済みパーティー名を格納する配列
@@ -58,7 +62,6 @@ export default function PartySelect(props: any) {
       // パーティー切り替え前にグリッドを全て初期化する
       initialGrid();
       response.data.records.forEach((element: any, index: number) => {
-        console.info(`element:${JSON.stringify(element)},  index:${index}`);
         // ループ前の配列を分解して新たにループ後のパーティー名を一つずつ格納する
         if (index === 0) {
           props.setCurrentSelectPokemon1(element.poke_name_id);
@@ -84,6 +87,10 @@ export default function PartySelect(props: any) {
       }
     })
   };
+
+  const party_reload = () => {
+    window.location.reload();
+  }
 
   // 登録済みパーティー一覧をDBから取得する処理
   const getPartyList = () => {
@@ -120,7 +127,7 @@ export default function PartySelect(props: any) {
   
 
   return (
-    <div>
+    <div className='party_select_wrapper'>
       <FormControl sx={{ m: 1, minWidth: 500 }} >
         <InputLabel id="demo-simple-select-autowidth-label">パーティー選択</InputLabel>
         <Select
@@ -145,6 +152,13 @@ export default function PartySelect(props: any) {
             ))}
         </Select>
       </FormControl>
+      <Tooltip title={<Typography style={{ fontSize: "15px" }}>パーティー情報を更新する</Typography>}>
+        <CachedIcon
+          fontSize='large'
+          className='reload_icon'
+          onClick={party_reload}
+          />
+      </Tooltip>
     </div>
   );
 }

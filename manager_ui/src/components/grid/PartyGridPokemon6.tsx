@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 // ①ユニバーサルクッキーをインポート
 import Cookies from 'universal-cookie';
+import { RoutingLogic } from '../../logic/router-logic';
 
 import '../../css/PartyGridPokemon.css';
 
@@ -13,11 +14,18 @@ const PartyGridPokemon6 = (props: any) => {
     // ②cookieを取得するインスタンスの作成
     const cookies = new Cookies();
 
+    const router = RoutingLogic()
+
     // ダイアログからポケモン情報取得時に毎回最初に起動させる処理
     useEffect(() => {
         getPokemonList()
     },[])
-        
+
+      // トークン認証時間切れの処理
+      const toNotTokenAuthentication = () => {
+        router.toNotTokenAuthentication();
+      }
+
     // グリッド毎に一致したポケモン情報をDBから取得する処理
     // GETの場合はクエリストリングにパラメータ乗せるか"option"でパラメータつける方法で使用
     const getPokemonList = () => {
@@ -46,9 +54,14 @@ const PartyGridPokemon6 = (props: any) => {
             }
         })
         .catch(error=>{
+          // Token認証時間切れ時の処理→ログイン画面へ遷移
+          if (error.response.status === 401){
+            toNotTokenAuthentication();
+          } else {
             window.console.error(`axios-FAILED:${error}`);
+          }
         })
-    }
+      }  
 
   return (
       <div className='total_container'>

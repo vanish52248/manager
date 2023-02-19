@@ -17,7 +17,6 @@ const Login = (props: any) => {
 
     // ログインボタンクリック時の処理
     const getJwt = async (data: any) =>{
-        console.info(`リクエスト情報:${JSON.stringify(data)}`);
         await axios.post(process.env.REACT_APP_API_URL + 'v1/auth/jwt/create/',
           {
             // 入力されたフォームのユーザー名とパスワードでクッキーを作成
@@ -26,7 +25,6 @@ const Login = (props: any) => {
           },
         )
         .then(function (response) {
-          console.info("ログイン成功");
           // 開発者ツールのcookiesに"accesstoken"と"refreshtoken"の値がセットされる(無いとBE API取得時に401になる)
           setCookie('accesstoken', response.data.access, { path: '/' });
           setCookie('refreshtoken', response.data.refresh, { path: '/' });

@@ -30,6 +30,11 @@ export default function MenuButtons() {
     router.toPokemonSelectionRate();
   }
 
+  // 登録済みフィールド編集画面
+  const toEditor = () => {
+    router.toEditor();
+  }
+
   return (
     <>
       <Box
@@ -61,7 +66,7 @@ export default function MenuButtons() {
             key="battle_record"
             onClick={toBattleRecord}
           >
-            バトル戦績
+            ランクバトル戦績登録
           </Button>
         </Paper>
         <Paper elevation={3} style={{marginBottom: "7%"}}>
@@ -71,7 +76,17 @@ export default function MenuButtons() {
            key="pokemon_selection_rate"
            onClick={toPokemonSelectionRate}
           >
-            ポケモン選出率
+            相手ポケモン選出率
+          </Button>
+        </Paper>
+        <Paper elevation={3} style={{marginBottom: "7%"}}>
+          <Button
+            className='button'
+            style={{width: "100%"}}
+            key="pokemon_editor"
+            onClick={toEditor}
+            >
+            登録済データ管理
           </Button>
         </Paper>
         </Box>

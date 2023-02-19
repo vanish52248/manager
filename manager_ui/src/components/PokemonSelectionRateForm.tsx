@@ -187,8 +187,8 @@ export default function PokemonSelectionRateForm() {
     // 相手側の選出ポケモンの一覧をカウントする
     for (var i = 0; i < tmpList.length; i++) {
       var elm = tmpList[i];
-      // 処理上含まれてしまうからの文字列以外をカウントするようにする
-      if (elm !== "") {
+      // 処理上含まれてしまう空文字列以外をカウントするようにする
+      if (elm !== "" && elm !== "None" && elm !== " " && elm !== ",") {
         countItem[elm] = (countItem[elm] || 0) + 1;
       }
     }
@@ -209,6 +209,7 @@ export default function PokemonSelectionRateForm() {
     setEnemyPokemonFirstPlace([]);
     setEnemyPokemonSecondPlace([]);
     setEnemyPokemonThirdPlace([]);
+    console.log(`countDict:${JSON.stringify(countDict)}`);
     for (let i of Object.values(countDict)) {
       // 1位の設定
       if (max_ < Number(i)) {
@@ -228,15 +229,15 @@ export default function PokemonSelectionRateForm() {
     for (let [key, value] of Object.entries(countDict)) {
       // 一番多い数と一致しているので1位に設定
       if (Number(value) === max_) {
-        firstList.push(key + ",");
+        firstList.push(key);
         setEnemyPokemonFirstPlace(firstList);
         // 2番目に多い数と一致しているので2位に設定
       } else if (Number(value) < max_ && Number(value) === second) {
-        secondList.push(key + ",");
+        secondList.push(key);
         setEnemyPokemonSecondPlace(secondList);
         // 3番目に多い数と一致しているので3位に設定
       } else if (Number(value) < second && Number(value) === third) {
-        thirdList.push(key + ",");
+        thirdList.push(key);
         setEnemyPokemonThirdPlace(thirdList);
       }
     }
@@ -322,7 +323,7 @@ export default function PokemonSelectionRateForm() {
                   {enemyPokemonList.map((value: any, index: number) => (
                     <Grid item md={12} key={index}>
                       <div className='grid_container'>
-                        {value + ''}
+                        {value.toString().replaceAll("None,", "").replace("None", "")}
                       </div>
                     </Grid>
                   ))}
@@ -332,9 +333,9 @@ export default function PokemonSelectionRateForm() {
           </div>
           <div className="select_enemy_ranking_wrapper">
             <h3>相手側 選出ポケモンランキング</h3>
-            <p>&#129351; 1位：{enemyPokemonFirstPlace}</p>
-            <p>&#129352; 2位：{enemyPokemonSecondPlace}</p>
-            <p>&#129353; 3位：{enemyPokemonThirdPlace}</p>
+            <p>&#129351; 1位：{enemyPokemonFirstPlace.toString().replaceAll("None", "").replace(",None", "")}</p>
+            <p>&#129352; 2位：{enemyPokemonSecondPlace.toString().replaceAll("None", "").replace("None", "")}</p>
+            <p>&#129353; 3位：{enemyPokemonThirdPlace.toString().replaceAll("None", "").replace("None", "")}</p>
           </div>
         </Paper>
       </Box>

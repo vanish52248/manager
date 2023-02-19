@@ -21,7 +21,6 @@ const Header = () => {
 
   // ログアウトアイコンクリック時にログアウトする処理
   const doLogout = () => {
-    console.info("ログアウト成功");
     // ログアウトしたらログイン判定用のセッションストレージからloginキーを削除する
     sessionStorage.removeItem("login");
     // ログアウトしたらセッションストレージから現在のユーザー名を削除する

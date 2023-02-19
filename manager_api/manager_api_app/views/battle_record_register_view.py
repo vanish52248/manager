@@ -38,6 +38,9 @@ class BattleRecordRegisterView(APIView):
         # リクエストデータ(選択ポケモン)を3匹以下にシリアライズ
         BattleRecordSerializer.validate_choice_three_lte_my_pokemon(
             self, my_choice_pokemon_list)
+        # リクエストデータ(相手選択ポケモン)の同名ポケモン登録をなくすようにシリアライズ
+        BattleRecordSerializer.validate_choice_unique_enemy_pokemon(
+            self, request.data.get('enemy_pokemon'))
 
         battle_record_obj = MstBattleRecord.objects.create(
             rank=request.data.get('rank'),

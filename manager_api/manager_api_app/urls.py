@@ -6,6 +6,9 @@ from manager_api_app.views import (
     party_list_view, party_grid_pokemon_view, party_name_pokemon_view,
     battle_record_register_view, battle_result_count_view,
     account_register_view, pokemon_selection_rate_view,
+    pokemon_delete_view, pokemon_edit_view, battle_record_list_view,
+    party_delete_view, party_edit_view, party_edit_pokemon_info_view,
+    battle_record_delete_view, battle_record_edit_view,
 )
 
 urlpatterns = [
@@ -33,11 +36,15 @@ urlpatterns = [
     path('party_name_pokemon/',
          party_name_pokemon_view.PartyNamePokemonView.as_view(),
          name='party_name_pokemon'),
+    # バトル戦績一覧取得のルーティング
+    path('battle_record_list/',
+         battle_record_list_view.BattleRecordListView.as_view(),
+         name='battle_record_list'),
     # バトル戦績登録のルーティング
     path('battle_record_register/',
          battle_record_register_view.BattleRecordRegisterView.as_view(),
          name='battle_record_register'),
-    # バトル対戦結果取得のルーティング
+    # バトル対戦結果取得計算のルーティング
     path('battle_result_count/',
          battle_result_count_view.BattleResultCountView.as_view(),
          name='battle_result_count'),
@@ -45,6 +52,34 @@ urlpatterns = [
     path('select_pokemon_list/',
          pokemon_selection_rate_view.PokemonSelectionRateView.as_view(),
          name='pokemon_selection_rate_view'),
+    # DBからポケモンを削除するルーティング
+    path('pokemon_delete/',
+         pokemon_delete_view.PokemonDeleteView.as_view(),
+         name='pokemon_delete_view'),
+    # DBのポケモン情報を編集するルーティング
+    path('pokemon_edit/',
+         pokemon_edit_view.PokemonEditView.as_view(),
+         name='pokemon_edit_view'),
+    # DBからパーティーを削除するルーティング
+    path('party_delete/',
+         party_delete_view.PartyDeleteView.as_view(),
+         name='party_delete_view'),
+    # DBのパーティー情報を編集するルーティング
+    path('party_edit/',
+         party_edit_view.PartyEditView.as_view(),
+         name='party_edit_view'),
+    # DBのパーティーのうちポケモン名を逆算して取得するルーティング
+    path('party_edit_pokemon_info/',
+         party_edit_pokemon_info_view.PartyEditPokemonInfoView.as_view(),
+         name='party_edit_pokemon_info_view'),
+    # DBからランクバトル戦績を削除するルーティング
+    path('battle_record_delete/',
+         battle_record_delete_view.BattleRecordDeleteView.as_view(),
+         name='battle_record_delete_view'),
+    # DBのランクバトル戦績情報を編集するルーティング
+    path('battle_record_edit/',
+         battle_record_edit_view.BattleRecordEditView.as_view(),
+         name='battle_record_edit_view'),
 ]
 
 # django-debug-toolbar用ルーティング

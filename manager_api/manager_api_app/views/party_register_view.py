@@ -47,6 +47,12 @@ class PartyRegisterView(APIView):
             PartySerializer.validate_party_pokemon_blank(
                 self, result_data[f"currentSelectPokemon{i}"],)
 
+        # リクエストデータの重複をシリアライズ
+        data_lst = []
+        for i in range(1, 7):
+            data_lst.append(result_data[f"currentSelectPokemon{i}"],)
+        PartySerializer.validate_party_pokemon_unique(self, data_lst)
+
         # 登録画面から受け取った値をPartyテーブルに登録する
         for i in range(1, 7):
             MstParty.objects.create(

@@ -66,7 +66,6 @@ export default function PokemonAddDialog(props: any) {
     // ダイアログ内のポケモンが選択された際の非同期登録処理
     // クリックされたグリッド番号ごとに登録するstateを分岐
     const handleChange = async (event: any) => {
-      window.console.info("パーティーへのポケモン登録完了");
       // awaitでグリッドの値を空にしてから値を更新する
       if (props.gridNo === 0) {
         await props.setCurrentSelectPokemon1();

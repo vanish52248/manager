@@ -28,6 +28,17 @@ class PartySerializer(serializers.ModelSerializer):
             message = "パーティーの名前が既に登録済みなので登録できません。"
             raise serializers.ValidationError({"error_message": message})
 
+    def validate_party_pokemon_unique(self, data_lst):
+        """ポケモン重複登録を防ぐ"""
+        judge_unique_lst = []
+        for data in data_lst:
+            if data not in judge_unique_lst:
+                judge_unique_lst.append(data)
+            else:
+                # UIでスナックバーに表示するメッセージ
+                message = "パーティーに同名のポケモンは登録できません。"
+                raise serializers.ValidationError({"error_message": message})
+
     def validate_party_pokemon_blank(self, data):
         """ポケモン6匹を必須パラメータにする"""
         if data is None:
